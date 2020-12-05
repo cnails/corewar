@@ -3,68 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args_flags.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 19:38:29 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static uint8_t	is_n_flag(const char *argv_str)
+void			parse_champ_name(const char *argv_name, char *champ_name[])
 {
-	if (ft_strcmp(argv_str, FLAG_N) == 0)
-		return (1);
-	return (0);
-}
+	char		*substr;
 
-static uint8_t	is_dump_flag(const char *str)
-{
-	if (ft_strcmp(str, FLAG_DUMP) == 0)
-		return (1);
-	return (0);
-}
-
-/*
-**    проверяем -dump флаг
-**    проверяем, есть ли за -dump число
-**
-**    правильный пример:
-**        ./corewar -dump 100 A.cor B.cor
-**    неправильный пример:
-**        ./corewar -dump -100 A.cor B.cor
-**        ./corewar -dump
-*/
-
-uint8_t			parse_dump_flag(char *splited_argv[])
-{
-	if (is_dump_flag(splited_argv[0]))
+	substr = ft_strstr(argv_name, DOTCOR);
+	if (!substr || substr == argv_name || substr[DOTCOR_SIZE] != '\0')
+		exit_error(E_ARGV_CHAMP_NAME);
+	else
 	{
-		if (splited_argv[1])
-		{
-			if (!ft_isnumber_int(splited_argv[1]) || splited_argv[1][0] == '-')
-				exit_error(E_ARGV_DUMP_FLAG_NAN);
-			update_dump_flag(ft_atoi(splited_argv[1]));
-			return (1);
-		}
-		else
-			exit_error(E_ARGV_DUMP_NOT_EXIST);
+		*champ_name = ft_strdup(argv_name);
+		if (!*champ_name)
+			exit_error(E_STRSUB);
 	}
-	return (0);
 }
-
-/*
-**    проверяем -n флаг
-**    проверяем, есть ли за -n число
-**    проверяем, указано ли имя файла (чемпиона) после числа
-**
-**    правильный пример:
-**        ./corewar -n 2 A.cor -n 1 B.cor
-**    неправильный пример:
-**        ./corewar -n A.cor B.cor
-**        ./corewar -n 2 A.cor B.cor -n 3
-*/
 
 uint8_t			parse_n_flag(char **splited_argv)
 {
@@ -92,22 +53,33 @@ uint8_t			parse_n_flag(char **splited_argv)
 	return (0);
 }
 
-/*
-**	проверяем имя файла (чемпиона)
-**	должно оканчиваться на ".cor"
-*/
-
-void			parse_champ_name(const char *argv_name, char *champ_name[])
+uint8_t			parse_dump_flag(char *splited_argv[])
 {
-	char		*substr;
-
-	substr = ft_strstr(argv_name, DOTCOR);
-	if (!substr || substr == argv_name || substr[DOTCOR_SIZE] != '\0')
-		exit_error(E_ARGV_CHAMP_NAME);
-	else
+	if (is_dump_flag(splited_argv[0]))
 	{
-		*champ_name = ft_strdup(argv_name);
-		if (!*champ_name)
-			exit_error(E_STRSUB);
+		if (splited_argv[1])
+		{
+			if (!ft_isnumber_int(splited_argv[1]) || splited_argv[1][0] == '-')
+				exit_error(E_ARGV_DUMP_FLAG_NAN);
+			update_dump_flag(ft_atoi(splited_argv[1]));
+			return (1);
+		}
+		else
+			exit_error(E_ARGV_DUMP_NOT_EXIST);
 	}
+	return (0);
+}
+
+static uint8_t	is_n_flag(const char *argv_str)
+{
+	if (ft_strcmp(argv_str, FLAG_N) == 0)
+		return (1);
+	return (0);
+}
+
+static uint8_t	is_dump_flag(const char *str)
+{
+	if (ft_strcmp(str, FLAG_DUMP) == 0)
+		return (1);
+	return (0);
 }

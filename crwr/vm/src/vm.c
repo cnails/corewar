@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 19:30:57 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-void		init_arena(uint8_t *arena, t_champion *champ[])
-{
-	uint8_t	i;
-	uint8_t	count_champ;
-
-	i = 0;
-	count_champ = get_number_of_players();
-	while (champ[i])
-	{
-		ft_memmove(&(arena[i * MEM_SIZE / count_champ]), champ[i]->code, \
-					champ[i]->header.prog_size);
-		i++;
-	}
-}
 
 void		init_vm(t_vm *vm, t_champion *champ[], uint8_t *arena, \
 					t_carriage *carriage)
@@ -42,4 +27,19 @@ void		init_vm(t_vm *vm, t_champion *champ[], uint8_t *arena, \
 	vm->lives_num = 0;
 	vm->carriage_num = vm->count_champs;
 	vm->last_alive = NULL;
+}
+
+void		init_arena(uint8_t *arena, t_champion *champ[])
+{
+	uint8_t	i;
+	uint8_t	count_champ;
+
+	i = 0;
+	count_champ = get_number_of_players();
+	while (champ[i])
+	{
+		ft_memmove(&(arena[i * MEM_SIZE / count_champ]), champ[i]->code, \
+					champ[i]->header.prog_size);
+		i++;
+	}
 }
