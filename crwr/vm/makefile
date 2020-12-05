@@ -1,7 +1,7 @@
 .PHONY: all clean fclean re
 
 # COLORS
-BLUE = "\e[38;5;69m"
+BLUE = "\038[0;69m"
 EOC = "\e[0m"
 
 # COMPILER SETTINGS
