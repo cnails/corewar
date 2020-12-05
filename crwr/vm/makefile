@@ -1,8 +1,8 @@
 .PHONY: all clean fclean re
 
 # COLORS
-BLUE = "\038[0;69m"
-EOC = "\e[0m"
+BLUE = "\033[0;34m"
+RESET = "\033[0m"
 
 # COMPILER SETTINGS
 CC := clang
@@ -89,7 +89,7 @@ all: $(L_RULE) $(PROG_NAME)
 
 $(PROG_NAME) : $(PROG_SRC) $(H_NAME) $(L_NAME)
 	@$(CC) $(CFLAGS) $(PROG_SRC) $(L_NAME) -o $(PROG_NAME) -I $(H_DIR) -lncurses
-	@echo $(BLUE)"COREWAR COMPILED"$(EOC)
+	@echo $(BLUE)"COREWAR COMPILED"$(RESET)
 
 clean:
 	@$(MAKE) -sC $(L_DIR) clean

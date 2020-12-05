@@ -1,8 +1,8 @@
 .PHONY: clean fclean re all
 
 # COLORS
-BLUE = "\e[38;5;69m"
-EOC = "\e[0m"
+BLUE = "\033[0;34m"
+RESET = "\033[0m"
 
 # COMPILER
 CC = gcc
@@ -72,7 +72,7 @@ $(DIR_OBJ_PRINTF)/%.o: $(DIR_SRC_PRINTF)/%.c $(H_PRINTF) $(H_LIBFT)
 
 $(NAME): $(SRCS_LIBFT) $(OBJS_LIBFT) $(SRCS_PRINTF) $(OBJS_PRINTF) $(H_LIBFT) $(H_PRINTF)
 	@ar rcs $(NAME) $(OBJS_LIBFT) $(OBJS_PRINTF)
-	@echo $(BLUE)"LIB COMPILED"$(EOC)
+	@echo $(BLUE)"LIB COMPILED"$(RESET)
 
 clean:
 	@rm -rf $(DIR_OBJ_LIBFT)
