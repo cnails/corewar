@@ -12,48 +12,61 @@
 
 #include "asm.h"
 
-void	sum_size(t_data *data)
+void	get_file_size(t_data *data)
 {
 	int		i;
 	int		sum;
 
 	i = 0;
 	sum = 0;
-	data->instrs[0].sum_size = 0;
+	data->instrs[0].get_file_size = 0;
 	while (i < data->instr_num)
 	{
 		sum = data->instrs[i].size + sum;
-		data->instrs[i].sum_size = sum;
+		data->instrs[i].get_file_size = sum;
 		i++;
 	}
 	data->file_size = sum;
 }
 
-void	write_hex_fd(long nbr, int fd)
+void	write_hex(long num, int fd)
 {
-	if (nbr >= 256)
+	if (num >= 256)
 	{
-		write_hex_fd(nbr / 256, fd);
-		write_hex_fd(nbr % 256, fd);
+		write_hex(num / 256, fd);
+		write_hex(num % 256, fd);
 	}
 	else
-		ft_putchar_fd(nbr, fd);
+		ft_putchar_fd(num, fd);
 }
 
-void	write_magic_fd(long nb, int fd)
+int		write_header_in_file(char *str, int size, int fd, int f)
 {
-	int		count;
+	int		i;
 
-	count = 0;
-	while (nb != 0)
+	i = 0;
+	if (f == 1)
+		size += 3;
+	while (str[i] != '\0')
 	{
-		nb = nb / 256;
-		count++;
+		ft_putchar_fd(str[i], fd);
+		i++;
 	}
-	while (4 - count)
+	while (i < size)
 	{
 		ft_putchar_fd(0x0, fd);
-		count++;
+		i++;
 	}
-	write_hex_fd(COREWAR_EXEC_MAGIC, fd);
+	return (0);
+}
+
+int		writing_in_file(t_data *data, int fd)
+{
+	get_file_size(data);
+	write_exec_to_fd(COREWAR_EXEC_MAGIC, fd);
+	write_header_in_file(data->header->prog_name, PROG_NAME_LENGTH + 1, fd, 0);
+	write_size_fd(data->file_size, fd);
+	write_header_in_file(data->header->comment, COMMENT_LENGTH + 1, fd, 1);
+	write_instr_to_fd(data, fd);
+	return (0);
 }

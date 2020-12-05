@@ -74,7 +74,7 @@ typedef struct			s_instr
 	t_arg				args[3];
 	char				*label;
 	int					id_instr;
-	int					sum_size;
+	int					get_file_size;
 	t_sort				*labels;
 }						t_instr;
 
@@ -118,9 +118,9 @@ typedef struct			s_op
 const t_op				g_op_tab[MAX_OP];
 
 int						check_label(char *label);
-t_sort					*add_block(char *label);
-void					push_end(char *label, t_sort **sort);
-void					sort_del(t_sort **sort);
+t_sort					*add_sorted(char *label);
+void					push_back(char *label, t_sort **sort);
+void					del_sorted(t_sort **sort);
 void					ft_exit(char *str);
 void					free_fd_put_error(char *err, char *line, \
 													t_data *data, int ind_str);
@@ -128,8 +128,8 @@ char					*ft_saved_name(char *str);
 void					ft_close_fd(int a, int b, char *filename);
 void					skip_spaces(char *split, int *i);
 int						ft_is_number(char *name);
-int						massiv_len(char **args);
-int						get_number_of_lines(t_data *data, int num);
+int						array_len(char **args);
+int						lines_num(t_data *data, int num);
 void					ft_init_structs(t_data *data, int instr_num);
 int						ft_line_parser(char *str, t_data *data);
 int						ft_is_comment(char *str);
@@ -153,15 +153,15 @@ int						valid_args(t_data *data);
 void					free_massiv(char **massiv);
 void					free_data(t_data *data);
 void					ft_cor_extension(char *file, t_data *data);
-int						writing_to_file(t_data *data, int fd);
+int						write_in_file(t_data *data, int fd);
 int						writing_header_to_file(char *str, int size, int fd, \
 																		int f);
-void					write_magic_fd(long nb, int fd);
-void					write_hex_fd(long nbr, int fd);
+void					write_exec_to_fd(long nb, int fd);
+void					write_hex(long nbr, int fd);
 int						ft_skip(char *line, int id);
-void					sum_size(t_data *data);
+void					get_file_size(t_data *data);
 void					write_hex_fd(long nbr, int fd);
-void					write_magic_fd(long nb, int fd);
+void					write_exec_to_fd(long nb, int fd);
 int						writing_to_file(t_data *data, int fd);
 void					write_size_fd(long nb, int fd);
 void					write_args_to_fd(t_data *data, int ind_instr, \
@@ -172,8 +172,8 @@ int						code_args(t_arg *args);
 int						write_code_dir(int args, int type, \
 										int fd, int tdir_size);
 int						code_operation(char *name);
-int						write_header_to_file(char *str, int size, \
+int						write_header_in_file(char *str, int size, \
 												int fd, int f);
-void					write_instrs_to_fd(t_data *data, int fd);
+void					write_instr_to_fd(t_data *data, int fd);
 
 #endif

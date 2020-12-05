@@ -70,10 +70,10 @@ void	ft_parse_label_init(char *str, t_data *data, int *symbol_number, \
 			{
 				data->instrs[data->instr_num].label = label;
 				data->instrs[data->instr_num].labels = \
-													add_block(ft_strdup(label));
+													add_sorted(ft_strdup(label));
 			}
 			else
-				push_end(label, &data->instrs[data->instr_num].labels);
+				push_back(label, &data->instrs[data->instr_num].labels);
 		}
 	}
 }
@@ -86,7 +86,7 @@ void	ft_parse_body(char *str_init, t_data *data)
 
 	skip_comment(str_init, &str);
 	symbol_number = 0;
-	data->instrs[data->instr_num].sum_size = 0;
+	data->instrs[data->instr_num].get_file_size = 0;
 	data->instrs[data->instr_num].id = data->instr_num;
 	data->symbol_number = &symbol_number;
 	data->split = str_init;

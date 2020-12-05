@@ -109,7 +109,7 @@ void		ft_parse_args(char *split, int *i, t_data *data)
 
 	j = 0;
 	args = ft_strsplit(&split[*i], SEPARATOR_CHAR);
-	args_num = massiv_len(args);
+	args_num = array_len(args);
 	if (args_num > 3 || args == NULL)
 		free_fd_put_error(FT_PARSE_ARGS1, split, data, *i);
 	if (args == NULL)

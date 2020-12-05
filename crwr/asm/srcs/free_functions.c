@@ -33,7 +33,7 @@ void	free_instrs(t_data *data, int i)
 
 	j = 0;
 	if (data->instrs[i].labels != NULL)
-		sort_del(&data->instrs[i].labels);
+		del_sorted(&data->instrs[i].labels);
 	ft_strdel(&data->instrs[i].name);
 	ft_strdel(&data->instrs[i].label);
 	while (j < 3)
