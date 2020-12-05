@@ -3,39 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:31:47 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-/*
-** The strlcat () function appends the NUL-terminated string src
-** to the end of dest.
-** It will append at most size - strlen(dest) - 1 bytes,
-** NUL-terminating the result.
-*/
-
-size_t			ft_strlcat(char *dest, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t		i;
-	size_t		n;
+	size_t		end;
 
-	i = ft_strlen(dest);
-	n = ft_strlen(src);
-	if (i > size)
-		i = size;
-	if (i == size)
-		return (size + n);
-	if (n < size - i)
-		ft_memcpy(dest + i, src, n + 1);
-	else
+	i = 0;
+	while (dst[i] != '\0' && i < size)
+		i++;
+	end = i;
+	while (src[i - end] != '\0' && (i + 1) < size)
 	{
-		ft_memcpy(dest + i, src, size - i - 1);
-		dest[size - 1] = '\0';
+		dst[i] = src[i - end];
+		i++;
 	}
-	return (i + n);
+	if (end < size)
+		dst[i] = '\0';
+	return (end + ft_strlen((char*)src));
 }

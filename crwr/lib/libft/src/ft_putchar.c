@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:35:21 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-/*
-** The function output of character
-*/
-
-void			ft_putchar(char c)
+void		ft_putchar(char c)
 {
 	write(1, &c, 1);
-	return ;
 }

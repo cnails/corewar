@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_range.c                                         :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:31:47 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-int		*ft_range(int min, int max)
+int		ft_lstsize(t_list *begin_list)
 {
-	int i;
-	int z;
-	int n;
-	int *array;
+	int		i;
+	t_list	*buff;
 
-	n = 0;
-	i = max - min;
-	if (i <= 0)
-		return (0);
-	array = (int *)malloc(sizeof(int) * i);
-	if (array == NULL)
-		return (0);
-	z = min;
-	while (z < max)
+	i = 0;
+	buff = begin_list;
+	while (buff)
 	{
-		array[n] = z;
-		z++;
-		n++;
+		buff = buff->next;
+		i++;
 	}
-	return (array);
+	return (i);
 }

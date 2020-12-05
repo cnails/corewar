@@ -2,7 +2,7 @@
 
 # COLORS
 BLUE = "\033[0;34m"
-RESET = "\033[0m"
+EOC = "\033[0m"
 
 # COMPILER
 CC = gcc
@@ -24,14 +24,23 @@ DIR_SRC_LIBFT = $(DIR_LIBFT)/src
 DIR_OBJ_LIBFT = $(DIR_LIBFT)/obj
 
 SRC_LIBFT = \
-memset bzero memcpy memccpy memmove memchr memcmp memalloc memdel \
-atoi itoa itoa_base\
-isalpha isdigit isalnum isascii isprint toupper tolower isnumber isnumber_int\
-strlen strdup strcpy strncpy strcat strncat strlcat strchr strrchr \
-strstr strnstr strcmp strncmp strnew strdel strclr striter striteri \
-strmap strmapi strequ strnequ strsub strjoin strtrim strsplit \
-putchar putstr putendl putnbr putchar_fd putstr_fd putendl_fd putnbr_fd \
-numlen strnew_size arrdel
+	atoi	bzero	memccpy	memchr	lstmerge	arrdel	isnumber_int\
+	memcmp	memcpy		memmove 	memset		lstremove_if\
+	strlen	strcmp		isalnum		lstadd_back\
+	strcpy	strncpy	strcat		strncat	lstfind\
+	strlcat	strchr		strrchr	strstr	strsplit	numlen	\
+	strnstr	strncmp	isalpha	isdigit	putnbr_fd\
+	isascii	toupper	tolower	isprint	strdup\
+	memalloc	memdel		strnew		strdel		lstswap\
+	strclr	striter	striteri	strmap		strmapi \
+	strequ	strnequ	strsub		strjoin	strtrim\
+	putchar	putendl	putstr		itoa\
+	putnbr	putchar_fd	putstr_fd	putendl_fd \
+	lstnew	lstdelone	lstdel		lstadd		lstiter \
+	qsort	lstsize	lstlast	lsti		lstreverse\
+	free_table  itoabase   itoahex    itoa_signed itoadouble\
+	stradd_front stradd_back    strreplace strcat_front strcut\
+	   free intlen revstr	isnumber
 SRC_LIBFT := $(addprefix ft_, $(addsuffix .c, $(SRC_LIBFT)))
 SRC_GNL = get_next_line
 SRC_GNL := $(addsuffix .c, $(SRC_GNL))
@@ -72,7 +81,7 @@ $(DIR_OBJ_PRINTF)/%.o: $(DIR_SRC_PRINTF)/%.c $(H_PRINTF) $(H_LIBFT)
 
 $(NAME): $(SRCS_LIBFT) $(OBJS_LIBFT) $(SRCS_PRINTF) $(OBJS_PRINTF) $(H_LIBFT) $(H_PRINTF)
 	@ar rcs $(NAME) $(OBJS_LIBFT) $(OBJS_PRINTF)
-	@echo $(BLUE)"LIB COMPILED"$(RESET)
+	@echo $(BLUE)"LIB COMPILED"$(EOC)
 
 clean:
 	@rm -rf $(DIR_OBJ_LIBFT)

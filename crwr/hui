@@ -1,0 +1,17 @@
+atoi		bzero		memccpy	memchr		lstmerge\
+	  memcmp	memcpy		memmove 	memset		lstremove_if\
+	  strlen	strcmp		isalnum	lstqsort	lstadd_back\
+	  strcpy	strncpy	strcat		strncat	lstfind\
+	  strlcat	strchr		strrchr	strstr		lstmap\
+	  strnstr	strncmp	isalpha	isdigit	putnbr_fd\
+	  isascii	toupper	tolower	isprint	strdup\
+	  memalloc	memdel		strnew		strdel		lstswap\
+	  strclr	striter	striteri	strmap		strmapi \
+	  strequ	strnequ	strsub		strjoin	strtrim\
+	  putchar	putendl	putstr		strsplit	itoa\
+	  putnbr	putchar_fd	putstr_fd	putendl_fd get_next_line\
+	  lstnew	lstdelone	lstdel		lstadd		lstiter \
+	  qsort	lstsize	lstlast	lsti		lstreverse\
+	  free_table  itoabase   itoahex    itoa_signed itoadouble\
+	  stradd_front stradd_back    strreplace strcat_front strcut\
+	  twodemint free printf pow intlen revstr

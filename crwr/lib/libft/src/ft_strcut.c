@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:31:47 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-int		ft_sqrt(int nb)
+char		*ft_strcut(char *dest, size_t len_res)
 {
-	int i;
+	size_t	i;
+	char	*ans;
 
-	i = 1;
-	if (nb > 0)
+	i = 0;
+	if (len_res == ft_strlen(dest))
+		return (dest);
+	if (!dest || !(ans = ft_strnew(len_res)))
+		return (NULL);
+	while (i < len_res)
 	{
-		while (i <= 46340)
-		{
-			if (i * i == nb)
-				return (i);
-			i++;
-		}
+		ans[i] = dest[i];
+		i++;
 	}
-	return (0);
+	ans[i] = '\0';
+	free(dest);
+	return (ans);
 }

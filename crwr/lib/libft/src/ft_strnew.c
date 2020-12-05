@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:31:47 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*ft_strnew(size_t size)
 {
-	char *str;
+	char	*ans;
 
 	if (!(size + 1))
 		return (NULL);
-	str = (char *)malloc(size + 1);
-	if (!str)
+	ans = (char *)malloc(sizeof(char) * (size + 1));
+	if (!ans)
 		return (NULL);
-	ft_bzero(str, size + 1);
-	return (str);
+	ans = ft_memset(ans, '\0', size + 1);
+	return (ans);
 }
