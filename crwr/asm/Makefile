@@ -16,7 +16,7 @@ SRC_DIR_PARSE = parse/
 SRC_DIR_LOGIC = logic/
 SRC_DIR_OUTPUT = output/
 
-SRC_MAIN = sort.c main.c parse_header.c writing.c writing2.c writing3.c utils.c utils2.c checking_label.c parse.c error.c exec_structs.c parse_body.c corr_file.c parse_label.c parse_function.c parse_args.c free_functions.c valid_args.c count_len.c options.c
+SRC_MAIN = sort.c main.c parse_header.c writing.c writing_to_fd.c writing_file.c utils.c utils2.c checking_label.c parse.c error.c exec_structs.c parse_body.c corr_file.c parse_label.c parse_function.c parse_args.c free_functions.c valid_args.c count_len.c options.c
 SRC_PARSE_FILES =
 SRC_LOGIC_FILES =
 SRC_OUTPUT_FILES =

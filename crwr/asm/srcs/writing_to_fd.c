@@ -89,5 +89,5 @@ void	write_exec_to_fd(long num, int fd)
 		ft_putchar_fd(0x0, fd);
 		count++;
 	}
-	write_hex_fd(COREWAR_EXEC_MAGIC, fd);
+	write_hex(COREWAR_EXEC_MAGIC, fd);
 }
