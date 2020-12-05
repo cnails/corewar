@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_sort		*push_block(char *label)
 	return (sort);
 }
 
-void		push_to_the_end(char *label, t_sort **sort)
+void		push_end(char *label, t_sort **sort)
 {
 	t_sort	*last;
 	t_sort	*tmp;

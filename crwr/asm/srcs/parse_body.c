@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_body.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	get_number(char *argument, t_data *data, int n)
 	int chislo;
 
 	if (argument[0] != DIRECT_CHAR)
-		free_memory_and_write_error("Invalid direct argument without label", \
-                                    data->split, data, (*data->symbol_number));
+		fr_mem_in("Invalid direct argument without label", \
+									data->split, data, (*data->symbol_number));
 	chislo = ft_atoi(&argument[1]);
 	if (!validate_number(&argument[1]))
-		free_memory_and_write_error("Invalid direct argument without label", \
-                                    data->split, data, (*data->symbol_number));
+		fr_mem_in("Invalid direct argument without label", \
+									data->split, data, (*data->symbol_number));
 	data->instrs[data->instr_num].args[n].value = chislo;
 }
 
@@ -70,10 +70,10 @@ void	initial_parsing_of_label(char *string, t_data *data, int *sym_num, \
 			{
 				data->instrs[data->instr_num].label = good_label;
 				data->instrs[data->instr_num].labels = \
-													push_block(ft_strdup(good_label));
+				push_block(ft_strdup(good_label));
 			}
 			else
-				push_to_the_end(good_label, &data->instrs[data->instr_num].labels);
+				push_end(good_label, &data->instrs[data->instr_num].labels);
 		}
 	}
 }

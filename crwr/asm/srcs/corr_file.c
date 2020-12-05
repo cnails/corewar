@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corr_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:15 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ void	ft_cor_extension(char *filename, t_data *data)
 	data->file = ft_strdup(filename);
 	ft_strdel(&filename);
 }
-

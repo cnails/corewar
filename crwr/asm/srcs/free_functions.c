@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	free_memory_of_instr_blocks(t_data *data, int num_instr)
+void	mem_in_bl(t_data *data, int num_instr)
 {
 	int j;
 
@@ -43,7 +43,7 @@ void	free_two_dim_array(char **array)
 	free(array);
 }
 
-void	free_memory_in_main_structure(t_data *data)
+void	free_mem_inst(t_data *data)
 {
 	int i;
 	int num_of_all_i;
@@ -54,7 +54,7 @@ void	free_memory_in_main_structure(t_data *data)
 		free(data->header);
 	while (i < num_of_all_i)
 	{
-		free_memory_of_instr_blocks(data, i);
+		mem_in_bl(data, i);
 		i++;
 	}
 	ft_strdel(&data->all_labels);

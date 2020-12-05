@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   writing3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		put_something_to_file(t_data *data, int fd)
 	write_header_in_file(data->header->prog_name, PROG_NAME_LENGTH + 1, fd, 0);
 	put_magic_to_fd(data->file_size, fd);
 	write_header_in_file(data->header->comment, COMMENT_LENGTH + 1, fd, 1);
-	instrsToFd(data, fd);
+	inst_fd(data, fd);
 	return (0);
 }
 
@@ -61,15 +61,15 @@ void	wput_args_to_fd(t_data *data, int ind_instr, int code_op, int fd)
 		else
 		{
 			size = count_label_size(data, &args[i], instrs->sum_size \
- - instrs->size, g_op_tab[code_op - 1].tdir_size);
+			- instrs->size, g_op_tab[code_op - 1].tdir_size);
 			put_dir_code(size, args[i].type, fd, \
-                                            g_op_tab[code_op - 1].tdir_size);
+											g_op_tab[code_op - 1].tdir_size);
 		}
 		i++;
 	}
 }
 
-void	instrsToFd(t_data *data, int fd)
+void	inst_fd(t_data *data, int fd)
 {
 	int		i;
 	int		code_op;

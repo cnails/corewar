@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	length_og_error(int f)
 	exit(1);
 }
 
-void	free_memory_and_write_error(char *err, char *line, t_data *data, int ind_str)
+void	fr_mem_in(char *err, char *line, t_data *data, int ind_str)
 {
 	int line_count;
 
 	line_count = data->line_count;
-	free_memory_in_main_structure(data);
+	free_mem_inst(data);
 	error_function_for_body(err, line, line_count, ind_str);
 }
 
@@ -67,8 +67,9 @@ void	error_function(char *name_error, char *string, int n, int column)
 	if (string)
 	{
 		write(2, " INSTRUCTION \"", 14);
-		while (string[i] != ' ' && string[i] != '\t' && string[i] != COMMENT_CHAR && \
-							string[i] != ALT_COMMENT_CHAR && string[i] != '\0')
+		while (string[i] != ' ' && string[i] != '\t' \
+		&& string[i] != COMMENT_CHAR \
+		&& string[i] != ALT_COMMENT_CHAR && string[i] != '\0')
 		{
 			ft_putchar_fd(string[i], 2);
 			i++;
