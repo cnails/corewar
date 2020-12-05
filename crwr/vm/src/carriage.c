@@ -6,11 +6,26 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 19:33:59 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:08:25 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	init_carriage(t_carriage *carriage, uint8_t *arena, uint8_t id)
+{
+	carriage->program_counter = MEM_SIZE / get_number_of_players() * (id - 1);
+	carriage->opcode = *(arena + carriage->program_counter);
+	ft_memset(carriage->regs, 0, REG_NUMBER);
+	carriage->regs[0] = -id;
+	carriage->player_id = -id;
+	carriage->cycle_to_die = 0;
+	carriage->carry = 0;
+	carriage->live = 0;
+	carriage->last_live = 0;
+	carriage->next = NULL;
+	carriage->prev = NULL;
+}
 
 t_carriage	*create_carriage(void)
 {
@@ -64,19 +79,4 @@ void		add_carriage(t_carriage **carriage, uint8_t *arena, uint8_t id)
 		new_carriage->next = *carriage;
 	}
 	*carriage = new_carriage;
-}
-
-static void	init_carriage(t_carriage *carriage, uint8_t *arena, uint8_t id)
-{
-	carriage->program_counter = MEM_SIZE / get_number_of_players() * (id - 1);
-	carriage->opcode = *(arena + carriage->program_counter);
-	ft_memset(carriage->regs, 0, REG_NUMBER);
-	carriage->regs[0] = -id;
-	carriage->player_id = -id;
-	carriage->cycle_to_die = 0;
-	carriage->carry = 0;
-	carriage->live = 0;
-	carriage->last_live = 0;
-	carriage->next = NULL;
-	carriage->prev = NULL;
 }

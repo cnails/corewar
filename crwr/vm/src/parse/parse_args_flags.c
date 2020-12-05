@@ -6,11 +6,25 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 19:38:29 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:09:41 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static uint8_t	is_n_flag(const char *argv_str)
+{
+	if (ft_strcmp(argv_str, FLAG_N) == 0)
+		return (1);
+	return (0);
+}
+
+static uint8_t	is_dump_flag(const char *str)
+{
+	if (ft_strcmp(str, FLAG_DUMP) == 0)
+		return (1);
+	return (0);
+}
 
 void			parse_champ_name(const char *argv_name, char *champ_name[])
 {
@@ -67,19 +81,5 @@ uint8_t			parse_dump_flag(char *splited_argv[])
 		else
 			exit_error(E_ARGV_DUMP_NOT_EXIST);
 	}
-	return (0);
-}
-
-static uint8_t	is_n_flag(const char *argv_str)
-{
-	if (ft_strcmp(argv_str, FLAG_N) == 0)
-		return (1);
-	return (0);
-}
-
-static uint8_t	is_dump_flag(const char *str)
-{
-	if (ft_strcmp(str, FLAG_DUMP) == 0)
-		return (1);
 	return (0);
 }

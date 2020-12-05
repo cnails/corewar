@@ -6,38 +6,11 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 19:37:08 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:08:59 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-void			parse_args(char *champ_names[], char **argv)
-{
-	char		*unrnkng_champ_names[MAX_PLAYERS + 1];
-	char		**splited_argv;
-	size_t		i;
-	uint8_t		n;
-	uint8_t		possbl_pos;
-
-	parse_init(unrnkng_champ_names, &n);
-	i = parse_set_splited_argv(&splited_argv, argv);
-	while (splited_argv[i])
-	{
-		if (update_limit_number(0) > MAX_PLAYERS - 1)
-			exit_error(E_ARGV_LIMIT_PLAYERS);
-		if ((possbl_pos = parse_n_flag(splited_argv + i)) && i++ && i++)
-			parse_champ_name(splited_argv[i - 2], &champ_names[possbl_pos - 1]);
-		else
-			parse_champ_name(splited_argv[i], &unrnkng_champ_names[n++]);
-		i++;
-		update_limit_number(1);
-	}
-	merge_champ_names(champ_names, unrnkng_champ_names);
-	check_missed_pos_order();
-	if (splited_argv != argv)
-		ft_arrdel((void ***)&splited_argv);
-}
 
 static void		merge_champ_names(char **champ_names, \
 									char **unranking_champ_names)
@@ -106,4 +79,31 @@ static void		parse_init(char *unranking_champ_names[], uint8_t *n)
 {
 	init_arrptr((void *)unranking_champ_names, MAX_PLAYERS + 1);
 	*n = 0;
+}
+
+void			parse_args(char *champ_names[], char **argv)
+{
+	char		*unrnkng_champ_names[MAX_PLAYERS + 1];
+	char		**splited_argv;
+	size_t		i;
+	uint8_t		n;
+	uint8_t		possbl_pos;
+
+	parse_init(unrnkng_champ_names, &n);
+	i = parse_set_splited_argv(&splited_argv, argv);
+	while (splited_argv[i])
+	{
+		if (update_limit_number(0) > MAX_PLAYERS - 1)
+			exit_error(E_ARGV_LIMIT_PLAYERS);
+		if ((possbl_pos = parse_n_flag(splited_argv + i)) && i++ && i++)
+			parse_champ_name(splited_argv[i - 2], &champ_names[possbl_pos - 1]);
+		else
+			parse_champ_name(splited_argv[i], &unrnkng_champ_names[n++]);
+		i++;
+		update_limit_number(1);
+	}
+	merge_champ_names(champ_names, unrnkng_champ_names);
+	check_missed_pos_order();
+	if (splited_argv != argv)
+		ft_arrdel((void ***)&splited_argv);
 }

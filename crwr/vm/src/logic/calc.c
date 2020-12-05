@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/12/05 19:51:00 by cnails           ###   ########.fr       */
+/*   Updated: 2020/12/05 20:12:23 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ int32_t		calc_addr(int32_t addr)
 	if (addr < 0)
 		addr += MEM_SIZE;
 	return (addr);
+}
+
+uint32_t	calc_step_size(uint8_t arg_type, t_op op)
+{
+	if (arg_type & T_REG)
+		return (1);
+	else if (arg_type & T_DIR)
+		return (op.tdir_size);
+	else if (arg_type & T_IND)
+		return (IND_SIZE);
+	return (0);
 }
 
 uint32_t	calc_step(t_carriage *carriage)
@@ -38,13 +49,4 @@ uint32_t	calc_step(t_carriage *carriage)
 	return (step);
 }
 
-uint32_t	calc_step_size(uint8_t arg_type, t_op op)
-{
-	if (arg_type & T_REG)
-		return (1);
-	else if (arg_type & T_DIR)
-		return (op.tdir_size);
-	else if (arg_type & T_IND)
-		return (IND_SIZE);
-	return (0);
-}
+

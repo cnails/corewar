@@ -6,11 +6,26 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 19:31:15 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:06:18 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void		initialization(char *champ_names[], t_champion *champ[], \
+								uint8_t *arena, t_carriage **carriage)
+{
+	init_arrptr((void *)champ_names, MAX_PLAYERS + 1);
+	init_arrptr((void *)champ, MAX_PLAYERS + 1);
+	ft_memset(arena, 0, MEM_SIZE);
+	*carriage = NULL;
+}
+
+void			exit_error(const char *str)
+{
+	ft_fprintf(STDERR_FILENO, "%s%s\n", E_ERR, str);
+	exit(EXIT_FAILURE);
+}
 
 int				main(int argc, char **argv)
 {
@@ -34,19 +49,4 @@ int				main(int argc, char **argv)
 	free_champ(champ);
 	free_carriage_list(&(vm->carriage));
 	return (0);
-}
-
-static void		initialization(char *champ_names[], t_champion *champ[], \
-								uint8_t *arena, t_carriage **carriage)
-{
-	init_arrptr((void *)champ_names, MAX_PLAYERS + 1);
-	init_arrptr((void *)champ, MAX_PLAYERS + 1);
-	ft_memset(arena, 0, MEM_SIZE);
-	*carriage = NULL;
-}
-
-void			exit_error(const char *str)
-{
-	ft_fprintf(STDERR_FILENO, "%s%s\n", E_ERR, str);
-	exit(EXIT_FAILURE);
 }

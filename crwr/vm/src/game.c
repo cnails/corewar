@@ -6,11 +6,25 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 19:31:41 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:07:22 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void		exec_cycle(t_vm *vm)
+{
+	t_carriage	*carriage;
+
+	vm->iter_from_start++;
+	vm->cycle_after_check++;
+	carriage = vm->carriage;
+	while (carriage)
+	{
+		execute_oper(vm, carriage);
+		carriage = carriage->next;
+	}
+}
 
 void		game(t_vm *vm)
 {
@@ -27,20 +41,6 @@ void		game(t_vm *vm)
 			cycles_to_die_check(vm);
 	}
 	game_outro_msg(vm);
-}
-
-void		exec_cycle(t_vm *vm)
-{
-	t_carriage	*carriage;
-
-	vm->iter_from_start++;
-	vm->cycle_after_check++;
-	carriage = vm->carriage;
-	while (carriage)
-	{
-		execute_oper(vm, carriage);
-		carriage = carriage->next;
-	}
 }
 
 void		game_intro_msg(t_vm *vm)

@@ -6,11 +6,26 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 19:35:28 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:11:46 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void		swap_bit(char *byte)
+{
+	char	c;
+	int		i;
+
+	i = 0;
+	while (i < 4 / 2)
+	{
+		c = byte[i];
+		byte[i] = byte[3 - i];
+		byte[3 - i] = c;
+		i++;
+	}
+}
 
 static void		check_champ_file(t_header head, const char *filename)
 {
@@ -54,21 +69,6 @@ void			parse_files(t_champion *champ[], char *champ_names[])
 	while (champ_names[i])
 	{
 		champ[i] = parse_champ_file(champ_names[i], i + 1);
-		i++;
-	}
-}
-
-static void		swap_bit(char *byte)
-{
-	char	c;
-	int		i;
-
-	i = 0;
-	while (i < 4 / 2)
-	{
-		c = byte[i];
-		byte[i] = byte[3 - i];
-		byte[3 - i] = c;
 		i++;
 	}
 }
