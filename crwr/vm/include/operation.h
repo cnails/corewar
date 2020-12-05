@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Updated: 2020/12/05 20:54:14 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "vm.h"
 
-t_op_func	g_opfunc[17] =
+t_op_func	g_opfunc[16] =
 {
 	{op_live},
 	{op_ld},
@@ -32,7 +32,6 @@ t_op_func	g_opfunc[17] =
 	{op_lld},
 	{op_lldi},
 	{op_lfork},
-	{op_aff},
 	{NULL}
 };
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Updated: 2020/12/05 20:51:53 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,5 @@ void					op_fork(t_vm *vm, t_carriage *carriage);
 void					op_lld(t_vm *vm, t_carriage *carriage);
 void					op_lldi(t_vm *vm, t_carriage *carriage);
 void					op_lfork(t_vm *vm, t_carriage *carriage);
-void					op_aff(t_vm *vm, t_carriage *carriage);
 
 #endif

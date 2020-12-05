@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_aff_and_fork_ld.c                              :+:      :+:    :+:   */
+/*   add_zjmp_and_fork_ld.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/12/05 19:44:10 by cnails           ###   ########.fr       */
+/*   Updated: 2020/12/05 20:52:25 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@ void		op_add(t_vm *vm, t_carriage *carriage)
 	(void)vm;
 }
 
-void		op_aff(t_vm *vm, t_carriage *carriage)
+void		op_zjmp(t_vm *vm, t_carriage *carriage)
 {
-	(void)vm;
-	(void)carriage;
+	t_arg		*args;
+	extern t_op	g_optab[17];
+
+	(void)vm->arena;
+	args = carriage->args;
+	if (carriage->carry)
+		carriage->program_counter += args[FIRST].value % IDX_MOD;
 }
 
 void		op_and(t_vm *vm, t_carriage *carriage)
