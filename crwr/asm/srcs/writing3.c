@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void	write_size_fd(long nb, int fd)
+void	put_magic_to_fd(long nb, int fd)
 {
 	int		size;
 	int		count;
@@ -29,21 +29,21 @@ void	write_size_fd(long nb, int fd)
 		ft_putchar_fd(0x0, fd);
 		count++;
 	}
-	write_hex_fd(size, fd);
+	put_to_fd(size, fd);
 }
 
-int		writing_to_file(t_data *data, int fd)
+int		put_something_to_file(t_data *data, int fd)
 {
-	sum_size(data);
-	write_magic_fd(COREWAR_EXEC_MAGIC, fd);
-	write_header_to_file(data->header->prog_name, PROG_NAME_LENGTH + 1, fd, 0);
-	write_size_fd(data->file_size, fd);
-	write_header_to_file(data->header->comment, COMMENT_LENGTH + 1, fd, 1);
-	write_instrs_to_fd(data, fd);
+	count_sum_size(data);
+	magic_number_put_fd(COREWAR_EXEC_MAGIC, fd);
+	write_header_in_file(data->header->prog_name, PROG_NAME_LENGTH + 1, fd, 0);
+	put_magic_to_fd(data->file_size, fd);
+	write_header_in_file(data->header->comment, COMMENT_LENGTH + 1, fd, 1);
+	instrsToFd(data, fd);
 	return (0);
 }
 
-void	write_args_to_fd(t_data *data, int ind_instr, int code_op, int fd)
+void	wput_args_to_fd(t_data *data, int ind_instr, int code_op, int fd)
 {
 	int		i;
 	int		size;
@@ -60,16 +60,16 @@ void	write_args_to_fd(t_data *data, int ind_instr, int code_op, int fd)
 			ft_putchar_fd(args[i].value, fd);
 		else
 		{
-			size = size_to_label(data, &args[i], instrs->sum_size \
-							- instrs->size, g_op_tab[code_op - 1].tdir_size);
-			write_code_dir(size, args[i].type, fd, \
-											g_op_tab[code_op - 1].tdir_size);
+			size = count_label_size(data, &args[i], instrs->sum_size \
+ - instrs->size, g_op_tab[code_op - 1].tdir_size);
+			put_dir_code(size, args[i].type, fd, \
+                                            g_op_tab[code_op - 1].tdir_size);
 		}
 		i++;
 	}
 }
 
-void	write_instrs_to_fd(t_data *data, int fd)
+void	instrsToFd(t_data *data, int fd)
 {
 	int		i;
 	int		code_op;
@@ -78,11 +78,11 @@ void	write_instrs_to_fd(t_data *data, int fd)
 	code_op = 0;
 	while (i < data->instr_num)
 	{
-		code_op = code_operation(data->instrs[i].name);
+		code_op = get_code_op(data->instrs[i].name);
 		ft_putchar_fd(code_op, fd);
 		if (g_op_tab[code_op - 1].bit_type == 1)
-			ft_putchar_fd(code_args(data->instrs[i].args), fd);
-		write_args_to_fd(data, i, code_op, fd);
+			ft_putchar_fd(args_to_code(data->instrs[i].args), fd);
+		wput_args_to_fd(data, i, code_op, fd);
 		i++;
 	}
 }

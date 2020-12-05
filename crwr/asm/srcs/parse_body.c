@@ -12,95 +12,95 @@
 
 #include "asm.h"
 
-void	extract_number(char *arg, t_data *data, int num_arg)
+void	get_number(char *argument, t_data *data, int n)
 {
-	int number;
+	int chislo;
 
-	if (arg[0] != DIRECT_CHAR)
-		free_fd_put_error("Invalid direct arg without label", \
-									data->split, data, (*data->symbol_number));
-	number = ft_atoi(&arg[1]);
-	if (!ft_is_number(&arg[1]))
-		free_fd_put_error("Invalid direct arg without label", \
-									data->split, data, (*data->symbol_number));
-	data->instrs[data->instr_num].args[num_arg].value = number;
+	if (argument[0] != DIRECT_CHAR)
+		free_memory_and_write_error("Invalid direct argument without label", \
+                                    data->split, data, (*data->symbol_number));
+	chislo = ft_atoi(&argument[1]);
+	if (!validate_number(&argument[1]))
+		free_memory_and_write_error("Invalid direct argument without label", \
+                                    data->split, data, (*data->symbol_number));
+	data->instrs[data->instr_num].args[n].value = chislo;
 }
 
-void	skip_comment(char *str_init, char **str)
+void	eliminate_all_comments(char *initial_string, char **string)
 {
-	char **str_lines;
+	char **all_strings;
 
-	if (ft_strchr(str_init, COMMENT_CHAR))
+	if (ft_strchr(initial_string, COMMENT_CHAR))
 	{
-		str_lines = ft_strsplit(str_init, COMMENT_CHAR);
-		*str = ft_strdup(str_lines[0]);
-		free_massiv(str_lines);
+		all_strings = ft_strsplit(initial_string, COMMENT_CHAR);
+		*string = ft_strdup(all_strings[0]);
+		free_two_dim_array(all_strings);
 	}
-	else if (ft_strchr(str_init, ALT_COMMENT_CHAR))
+	else if (ft_strchr(initial_string, ALT_COMMENT_CHAR))
 	{
-		str_lines = ft_strsplit(str_init, ALT_COMMENT_CHAR);
-		*str = ft_strdup(str_lines[0]);
-		free_massiv(str_lines);
+		all_strings = ft_strsplit(initial_string, ALT_COMMENT_CHAR);
+		*string = ft_strdup(all_strings[0]);
+		free_two_dim_array(all_strings);
 	}
 	else
-		*str = ft_strdup(str_init);
+		*string = ft_strdup(initial_string);
 }
 
-void	go_to_start_if_label_in_arg(char *str, int *symbol_number, t_data *data)
+void	go_to_start_if_label_in_arg(char *string, int *sym_num, t_data *data)
 {
-	if (*symbol_number != 0 && data->instrs[data->instr_num].label == NULL)
+	if (*sym_num != 0 && data->instrs[data->instr_num].label == NULL)
 	{
-		*symbol_number = 0;
-		skip_spaces(str, symbol_number);
+		*sym_num = 0;
+		eliminate_spaces(string, sym_num);
 	}
 }
 
-void	ft_parse_label_init(char *str, t_data *data, int *symbol_number, \
-																char **label1)
+void	initial_parsing_of_label(char *string, t_data *data, int *sym_num, \
+																char **label)
 {
-	char	*label;
+	char	*good_label;
 
-	if (ft_strchr(str, LABEL_CHAR))
+	if (ft_strchr(string, LABEL_CHAR))
 	{
-		label = ft_parse_label(str, symbol_number);
-		*label1 = label;
-		if (label != NULL)
+		good_label = parsing_of_label(string, sym_num);
+		*label = good_label;
+		if (good_label != NULL)
 		{
 			if (data->instrs[data->instr_num].label == NULL)
 			{
-				data->instrs[data->instr_num].label = label;
+				data->instrs[data->instr_num].label = good_label;
 				data->instrs[data->instr_num].labels = \
-													add_block(ft_strdup(label));
+													push_block(ft_strdup(good_label));
 			}
 			else
-				push_end(label, &data->instrs[data->instr_num].labels);
+				push_to_the_end(good_label, &data->instrs[data->instr_num].labels);
 		}
 	}
 }
 
-void	ft_parse_body(char *str_init, t_data *data)
+void	parsing_of_body(char *initial_string, t_data *data)
 {
-	int		symbol_number;
-	char	*str;
-	char	*label;
+	int		sym_num;
+	char	*string;
+	char	*good_label;
 
-	skip_comment(str_init, &str);
-	symbol_number = 0;
+	eliminate_all_comments(initial_string, &string);
+	sym_num = 0;
 	data->instrs[data->instr_num].sum_size = 0;
 	data->instrs[data->instr_num].id = data->instr_num;
-	data->symbol_number = &symbol_number;
-	data->split = str_init;
-	ft_parse_label_init(str, data, &symbol_number, &label);
-	skip_spaces(str, &symbol_number);
-	go_to_start_if_label_in_arg(str, &symbol_number, data);
-	if (str[symbol_number] == '\0')
+	data->symbol_number = &sym_num;
+	data->split = initial_string;
+	initial_parsing_of_label(string, data, &sym_num, &good_label);
+	eliminate_spaces(string, &sym_num);
+	go_to_start_if_label_in_arg(string, &sym_num, data);
+	if (string[sym_num] == '\0')
 	{
-		ft_strdel(&str);
+		ft_strdel(&string);
 		return ;
 	}
-	ft_parse_function(str, &symbol_number, data);
-	ft_parse_args(str, &symbol_number, data);
-	ft_count_size(data);
+	parsing_function(string, &sym_num, data);
+	parse_all_arguments(string, &sym_num, data);
+	count_size_of_block(data);
 	data->instr_num += 1;
-	ft_strdel(&str);
+	ft_strdel(&string);
 }

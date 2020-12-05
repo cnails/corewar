@@ -14,20 +14,20 @@
 #include "error.h"
 #include "libftprintf.h"
 
-int		ft_skip(char *line, int id)
+int		go_through_spaces(char *line, int id)
 {
 	while (line[id] == ' ' || line[id] == '\t')
 		id++;
 	return (id);
 }
 
-void	ft_exit(char *str)
+void	exit_func(char *str)
 {
 	ft_putstr(str);
 	exit(1);
 }
 
-void	ft_close_fd(int a, int b, char *filename)
+void	close_fd(int a, int b, char *filename)
 {
 	close(a);
 	close(b);

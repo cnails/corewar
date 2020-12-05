@@ -12,35 +12,35 @@
 
 #include "asm.h"
 
-void	sum_size(t_data *data)
+void	count_sum_size(t_data *data)
 {
-	int		i;
-	int		sum;
+	int		j;
+	int		whole;
 
-	i = 0;
-	sum = 0;
+	j = 0;
+	whole = 0;
 	data->instrs[0].sum_size = 0;
-	while (i < data->instr_num)
+	while (j < data->instr_num)
 	{
-		sum = data->instrs[i].size + sum;
-		data->instrs[i].sum_size = sum;
-		i++;
+		whole = data->instrs[j].size + whole;
+		data->instrs[j].sum_size = whole;
+		j++;
 	}
-	data->file_size = sum;
+	data->file_size = whole;
 }
 
-void	write_hex_fd(long nbr, int fd)
+void	put_to_fd(long nbr, int fd)
 {
 	if (nbr >= 256)
 	{
-		write_hex_fd(nbr / 256, fd);
-		write_hex_fd(nbr % 256, fd);
+		put_to_fd(nbr / 256, fd);
+		put_to_fd(nbr % 256, fd);
 	}
 	else
 		ft_putchar_fd(nbr, fd);
 }
 
-void	write_magic_fd(long nb, int fd)
+void	magic_number_put_fd(long nb, int fd)
 {
 	int		count;
 
@@ -55,5 +55,5 @@ void	write_magic_fd(long nb, int fd)
 		ft_putchar_fd(0x0, fd);
 		count++;
 	}
-	write_hex_fd(COREWAR_EXEC_MAGIC, fd);
+	put_to_fd(COREWAR_EXEC_MAGIC, fd);
 }
