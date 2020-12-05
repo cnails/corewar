@@ -18,7 +18,7 @@ void	free_memory_of_instr_blocks(t_data *data, int num_instr)
 
 	j = 0;
 	if (data->instrs[num_instr].labels != NULL)
-		sort_del(&data->instrs[num_instr].labels);
+		deleting_of_sort(&data->instrs[num_instr].labels);
 	ft_strdel(&data->instrs[num_instr].name);
 	ft_strdel(&data->instrs[num_instr].label);
 	while (j < 3)

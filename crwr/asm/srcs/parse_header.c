@@ -83,7 +83,7 @@ int				parsing_of_header(t_header *main, char *string, int line_num)
 
 	id = 0;
 	s = 0;
-	id = ft_skip(string, id);
+	id = go_through_spaces(string, id);
 	if (!main->is_name && !ft_strncmp((string + id), N_CMD_STR, (LEN_N - 1)))
 	{
 		s = parsing_header_line(string, N_CMD_STR, (id + LEN_N), line_num);

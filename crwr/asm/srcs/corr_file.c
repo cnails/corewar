@@ -15,7 +15,7 @@
 void	validate_filename(char *filename)
 {
 	if (ft_strlen(ft_strstr(filename, ".s")) != 2)
-		ft_exit("Bad file filename\n");
+		exit_func("Bad file filename\n");
 }
 
 void	ft_cor_extension(char *filename, t_data *data)

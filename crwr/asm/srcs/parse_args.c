@@ -19,7 +19,7 @@ void		parsing_ind(char *argument, t_data *data, int n)
 	if (ft_isdigit(argument[0]) || argument[0] == '+' || argument[0] == '-')
 	{
 		data->instrs[data->instr_num].args[n].type = T_IND;
-		if (ft_is_number(argument))
+		if (validate_number(argument))
 		{
 			chislo = ft_atoi(argument);
 			data->instrs[data->instr_num].args[n].value = chislo;
@@ -77,7 +77,7 @@ void		parsing_r(char *argument, t_data *data, int n)
 	{
 		data->instrs[data->instr_num].args[n].type = T_REG;
 		chislo = ft_atoi(&argument[1]);
-		if (!ft_is_number(&argument[1]) || (chislo < 1 || chislo > 16))
+		if (!validate_number(&argument[1]) || (chislo < 1 || chislo > 16))
 			free_memory_and_write_error("Invalid register in args", data->split, \
                                                 data, (*data->symbol_number));
 		data->instrs[data->instr_num].args[n].value = chislo;
@@ -109,7 +109,7 @@ void		parse_all_arguments(char *split, int *i, t_data *data)
 
 	j = 0;
 	all_arguments = ft_strsplit(&split[*i], SEPARATOR_CHAR);
-	num_of_args = massiv_len(all_arguments);
+	num_of_args = length_of_massiv(all_arguments);
 	if (num_of_args > 3 || all_arguments == NULL)
 		free_memory_and_write_error(FT_PARSE_ARGS1, split, data, *i);
 	if (all_arguments == NULL)
@@ -119,7 +119,7 @@ void		parse_all_arguments(char *split, int *i, t_data *data)
 		parsing_of_one_argument(all_arguments[j], data, j);
 		j++;
 	}
-	j = valid_args(data);
+	j = check_args(data);
 	if (j == TOO_MANY_ARGS)
 		free_memory_and_write_error("Invalid number of all_arguments(too many)", split, \
                                                                     data, *i);

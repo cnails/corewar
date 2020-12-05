@@ -20,7 +20,7 @@ void	get_number(char *argument, t_data *data, int n)
 		free_memory_and_write_error("Invalid direct argument without label", \
                                     data->split, data, (*data->symbol_number));
 	chislo = ft_atoi(&argument[1]);
-	if (!ft_is_number(&argument[1]))
+	if (!validate_number(&argument[1]))
 		free_memory_and_write_error("Invalid direct argument without label", \
                                     data->split, data, (*data->symbol_number));
 	data->instrs[data->instr_num].args[n].value = chislo;
@@ -51,7 +51,7 @@ void	go_to_start_if_label_in_arg(char *string, int *sym_num, t_data *data)
 	if (*sym_num != 0 && data->instrs[data->instr_num].label == NULL)
 	{
 		*sym_num = 0;
-		skip_spaces(string, sym_num);
+		eliminate_spaces(string, sym_num);
 	}
 }
 
@@ -70,10 +70,10 @@ void	initial_parsing_of_label(char *string, t_data *data, int *sym_num, \
 			{
 				data->instrs[data->instr_num].label = good_label;
 				data->instrs[data->instr_num].labels = \
-													add_block(ft_strdup(good_label));
+													push_block(ft_strdup(good_label));
 			}
 			else
-				push_end(good_label, &data->instrs[data->instr_num].labels);
+				push_to_the_end(good_label, &data->instrs[data->instr_num].labels);
 		}
 	}
 }
@@ -91,7 +91,7 @@ void	parsing_of_body(char *initial_string, t_data *data)
 	data->symbol_number = &sym_num;
 	data->split = initial_string;
 	initial_parsing_of_label(string, data, &sym_num, &good_label);
-	skip_spaces(string, &sym_num);
+	eliminate_spaces(string, &sym_num);
 	go_to_start_if_label_in_arg(string, &sym_num, data);
 	if (string[sym_num] == '\0')
 	{

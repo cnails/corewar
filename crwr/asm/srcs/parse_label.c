@@ -18,7 +18,7 @@ char		*parsing_of_label(char *arr, int *sym_num)
 	char	**all_labels;
 	char	*one_label;
 
-	skip_spaces(arr, sym_num);
+	eliminate_spaces(arr, sym_num);
 	all_labels = ft_strsplit(&arr[*sym_num], LABEL_CHAR);
 	if (all_labels != NULL)
 	{

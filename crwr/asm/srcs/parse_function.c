@@ -55,7 +55,7 @@ char		*extract_name_of_function(char *array_of_strings, int *sym_num, t_data *da
 {
 	char	*func_name;
 
-	skip_spaces(array_of_strings, sym_num);
+	eliminate_spaces(array_of_strings, sym_num);
 	func_name = split_and_extract_name_of_function(&array_of_strings[*sym_num], ' ', data);
 	if (func_name == NULL)
 		func_name = split_and_extract_name_of_function(&array_of_strings[*sym_num], '\t', data);

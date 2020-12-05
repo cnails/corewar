@@ -14,7 +14,7 @@
 #include "error.h"
 #include "../libft/includes/libftprintf.h"
 
-int		write_header_to_file(char *str, int size, int fd, int f)
+int		write_header_in_file(char *str, int size, int fd, int f)
 {
 	int		i;
 
@@ -34,7 +34,7 @@ int		write_header_to_file(char *str, int size, int fd, int f)
 	return (0);
 }
 
-int		code_operation(char *name)
+int		get_code_op(char *name)
 {
 	int		i;
 
@@ -48,27 +48,27 @@ int		code_operation(char *name)
 	return (-1);
 }
 
-int		write_code_dir(int args, int type, int fd, int tdir_size)
+int		put_dir_code(int args, int type, int fd, int sizeof_t_dir)
 {
-	int		size;
-	int8_t	buf;
+	int		count;
+	int8_t	tmp;
 
 	if (type == T_DIR)
-		size = 4 - 2 * tdir_size;
+		count = 4 - 2 * sizeof_t_dir;
 	else if (type == T_IND)
-		size = 2;
+		count = 2;
 	else
-		size = 1;
-	while (size > 0)
+		count = 1;
+	while (count > 0)
 	{
-		buf = (args >> ((size - 1) * CHAR_BIT)) & 0xFF;
-		ft_putchar_fd(buf, fd);
-		size--;
+		tmp = (args >> ((count - 1) * CHAR_BIT)) & 0xFF;
+		ft_putchar_fd(tmp, fd);
+		count--;
 	}
 	return (args);
 }
 
-int		code_args(t_arg *args)
+int		args_to_code(t_arg *args)
 {
 	int		i;
 	int		code;
@@ -84,29 +84,29 @@ int		code_args(t_arg *args)
 	return (code);
 }
 
-int		size_to_label(t_data *data, t_arg *args, int cur_size, int tdir_size)
+int		count_label_size(t_data *data, t_arg *args, int cur_size, int tdir_size)
 {
 	int		i;
-	int		size;
-	t_sort	*lab;
-	t_instr *instrs;
+	int		count;
+	t_sort	*sort;
+	t_instr *all_instr;
 
 	i = 0;
-	size = 0;
-	lab = NULL;
-	instrs = data->instrs;
+	count = 0;
+	sort = NULL;
+	all_instr = data->instrs;
 	while (i < data->instr_num)
 	{
-		lab = instrs[i].labels;
-		while (lab)
+		sort = all_instr[i].labels;
+		while (sort)
 		{
-			if (lab->label && args->label && ft_strcmp(lab->label, \
+			if (sort->label && args->label && ft_strcmp(sort->label, \
 															args->label) == 0)
 			{
-				size = instrs[i].sum_size - instrs[i].size - cur_size;
-				return (size);
+				count = all_instr[i].sum_size - all_instr[i].size - cur_size;
+				return (count);
 			}
-			lab = lab->next;
+			sort = sort->next;
 		}
 		i++;
 	}
