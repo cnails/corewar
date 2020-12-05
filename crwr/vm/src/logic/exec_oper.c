@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_oper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Updated: 2020/12/05 19:45:27 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "operation.h"
 
-static int32_t	step_size(uint8_t arg_type, t_op op)
+static int32_t	calc_step_size(uint8_t arg_type, t_op op)
 {
 	if (arg_type & T_REG)
 		return (1);
@@ -34,7 +34,7 @@ static int32_t	calc_step(t_carriage *carriage)
 	step += OPCODE_SIZE + (g_optab[carriage->opcode - 1].bit_type ? 1 : 0);
 	while (i < g_optab[carriage->opcode - 1].col_args)
 	{
-		step += step_size(carriage->args[i].type, \
+		step += calc_step_size(carriage->args[i].type, \
 												g_optab[carriage->opcode - 1]);
 		i++;
 	}

@@ -63,22 +63,10 @@ SRC_LOGIC = op \
 
 SRC_LOGIC := $(addsuffix .c, $(SRC_LOGIC))
 
-SRC_LOGIC_OP = ld \
-				live \
-				st \
-				add \
-				sub \
-				and \
-				or \
-				xor \
-				zjmp \
-				ldi \
-				sti \
-				fork \
-				lld \
-				lldi \
-				lfork \
-				aff
+SRC_LOGIC_OP =	add_aff_and_fork_ld \
+				or_st_sti_sub_xor \
+				ldi_lfork_live_lld_lldi \
+				op_zjmp \
 				
 SRC_LOGIC_OP := $(addsuffix .c, $(SRC_LOGIC_OP))
 

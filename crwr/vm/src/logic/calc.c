@@ -3,24 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   calc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Updated: 2020/12/05 19:51:00 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-uint32_t	step_size(uint8_t arg_type, t_op op)
+int32_t		calc_addr(int32_t addr)
 {
-	if (arg_type & T_REG)
-		return (1);
-	else if (arg_type & T_DIR)
-		return (op.tdir_size);
-	else if (arg_type & T_IND)
-		return (IND_SIZE);
-	return (0);
+	addr %= MEM_SIZE;
+	if (addr < 0)
+		addr += MEM_SIZE;
+	return (addr);
 }
 
 uint32_t	calc_step(t_carriage *carriage)
@@ -34,17 +31,20 @@ uint32_t	calc_step(t_carriage *carriage)
 	step += OPCODE_SIZE + (g_optab[carriage->opcode - 1].bit_type ? 1 : 0);
 	while (i < g_optab[carriage->opcode - 1].col_args)
 	{
-		step += step_size(carriage->args[i].type, g_optab[carriage->opcode \
-																		- 1]);
+		step += calc_step_size(carriage->args[i].type,\
+										g_optab[carriage->opcode - 1]);
 		i++;
 	}
 	return (step);
 }
 
-int32_t		calc_addr(int32_t addr)
+uint32_t	calc_step_size(uint8_t arg_type, t_op op)
 {
-	addr %= MEM_SIZE;
-	if (addr < 0)
-		addr += MEM_SIZE;
-	return (addr);
+	if (arg_type & T_REG)
+		return (1);
+	else if (arg_type & T_DIR)
+		return (op.tdir_size);
+	else if (arg_type & T_IND)
+		return (IND_SIZE);
+	return (0);
 }
