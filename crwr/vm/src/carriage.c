@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   carriage.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 23:30:26 by hcloves           #+#    #+#             */
-/*   Updated: 2020/12/05 20:08:25 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:32:18 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	init_carriage(t_carriage *carriage, uint8_t *arena, uint8_t id)
 {
-	carriage->program_counter = MEM_SIZE / get_number_of_players() * (id - 1);
 	carriage->opcode = *(arena + carriage->program_counter);
+	carriage->program_counter = MEM_SIZE / get_number_of_players() * (id - 1);
 	ft_memset(carriage->regs, 0, REG_NUMBER);
-	carriage->regs[0] = -id;
-	carriage->player_id = -id;
 	carriage->cycle_to_die = 0;
-	carriage->carry = 0;
-	carriage->live = 0;
 	carriage->last_live = 0;
-	carriage->next = NULL;
+	carriage->regs[0] = -id;
+	carriage->live = 0;
+	carriage->carry = 0;
+	carriage->player_id = -id;
 	carriage->prev = NULL;
+	carriage->next = NULL;
 }
 
 t_carriage	*create_carriage(void)
@@ -52,18 +52,14 @@ void		set_starter_kit_carriage(t_carriage **carriage, uint8_t *arena)
 	}
 }
 
-/*
-** не все копирует
-*/
-
-t_carriage	*copy_carriage(t_carriage *carriage)
+t_carriage	*copy_carriage(t_carriage *car)
 {
 	t_carriage	*copy;
 
 	copy = create_carriage();
-	ft_memcpy(copy->regs, carriage->regs, sizeof(int32_t) * REG_NUMBER);
-	copy->live = carriage->live;
-	copy->carry = carriage->carry;
+	ft_memcpy(copy->regs, car->regs, sizeof(int32_t) * REG_NUMBER);
+	copy->live = car->live;
+	copy->carry = car->carry;
 	return (copy);
 }
 
