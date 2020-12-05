@@ -1,5 +1,7 @@
 .PHONY: all clean fclean re
 
+# compil: valgrind ./vm/corewar vm/trash_test/Backward.cor vm/trash_test/ex.cor vm/trash_test/42.cor
+
 # COLORS
 BLUE = "\033[0;34m"
 RESET = "\033[0m"
