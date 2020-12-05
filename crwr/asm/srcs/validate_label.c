@@ -12,17 +12,16 @@
 
 #include "asm.h"
 
-int		check_label(char *label)
+int		label_validation(char *str)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	j = 0;
-	while (label[i] && (label[i] != LABEL_CHAR))
+	while (str[i] && (str[i] != LABEL_CHAR))
 	{
 		j = 0;
-		while (LABEL_CHARS[j] != '\0' && LABEL_CHARS[j] != label[i])
+		while (LABEL_CHARS[j] != '\0' && LABEL_CHARS[j] != str[i])
 			j++;
 		if (LABEL_CHARS[j] == '\0')
 			return (0);

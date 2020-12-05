@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_args.c                                       :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,24 +12,24 @@
 
 #include "asm.h"
 
-int		get_bool(t_data *data, int i)
+int		extract_bool_val(t_data *data, int i)
 {
-	int bool;
+	int val;
 
-	bool = 0;
+	val = 0;
 	if (data->instrs[data->instr_num].args[i].type == T_DIR)
-		bool = T_DIR & \
+		val = T_DIR & \
 				g_op_tab[data->instrs[data->instr_num].id_instr].type_arg[i];
 	else if (data->instrs[data->instr_num].args[i].type == T_IND)
-		bool = T_IND & \
+		val = T_IND & \
 				g_op_tab[data->instrs[data->instr_num].id_instr].type_arg[i];
 	else if (data->instrs[data->instr_num].args[i].type == T_REG)
-		bool = T_REG & \
+		val = T_REG & \
 				g_op_tab[data->instrs[data->instr_num].id_instr].type_arg[i];
-	return (bool);
+	return (val);
 }
 
-int		valid_args(t_data *data)
+int		check_args(t_data *data)
 {
 	int i;
 	int num_args;
@@ -47,7 +47,7 @@ int		valid_args(t_data *data)
 		}
 		if (data->instrs[data->instr_num].args[i].type == 0)
 			return (FEW_ARGS);
-		if (!get_bool(data, i))
+		if (!extract_bool_val(data, i))
 			return (INVALID_TYPE);
 		i++;
 	}

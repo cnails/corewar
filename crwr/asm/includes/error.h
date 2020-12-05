@@ -20,8 +20,8 @@
 # define EXEC_MAGIC_ERR		"Error: COREWAR_EXEC_MAGIC > UINT_MAX\n"
 # define MALLOC_ERR			"Error: malloc error\n"
 
-void						ft_error(char *err, char *line, int num_str, \
-										int ind_str);
-void						ft_error_length(int f);
+void						error_function(char *err, char *string, int n, \
+										int column);
+void						length_og_error(int f);
 
 #endif
