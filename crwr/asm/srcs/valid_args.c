@@ -12,23 +12,6 @@
 
 #include "asm.h"
 
-int		get_bool(t_data *data, int i)
-{
-	int bool;
-
-	bool = 0;
-	if (data->instrs[data->instr_num].args[i].type == T_DIR)
-		bool = T_DIR & \
-				g_op_tab[data->instrs[data->instr_num].id_instr].type_arg[i];
-	else if (data->instrs[data->instr_num].args[i].type == T_IND)
-		bool = T_IND & \
-				g_op_tab[data->instrs[data->instr_num].id_instr].type_arg[i];
-	else if (data->instrs[data->instr_num].args[i].type == T_REG)
-		bool = T_REG & \
-				g_op_tab[data->instrs[data->instr_num].id_instr].type_arg[i];
-	return (bool);
-}
-
 int		valid_args(t_data *data)
 {
 	int i;

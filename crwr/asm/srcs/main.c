@@ -35,7 +35,7 @@ int		main(int ac, char **av)
 	ft_cor_extension(av[ac - 1], &cw);
 	if ((cw.write_fd = open(cw.file, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
 		ft_exit("Unable to create .cor file\n");
-	writing_to_file(&cw, cw.write_fd);
+	writing_in_file(&cw, cw.write_fd);
 	ft_close_fd(cw.read_fd, cw.write_fd, cw.file);
 	free_data(&cw);
 	return (0);

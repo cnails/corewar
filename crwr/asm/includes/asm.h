@@ -120,6 +120,8 @@ const t_op				g_op_tab[MAX_OP];
 int						check_label(char *label);
 t_sort					*add_sorted(char *label);
 void					push_back(char *label, t_sort **sort);
+t_sort					*get_next(t_sort *map);
+int						get_bool(t_data *data, int i);
 void					del_sorted(t_sort **sort);
 void					ft_exit(char *str);
 void					free_fd_put_error(char *err, char *line, \
@@ -162,7 +164,7 @@ int						ft_skip(char *line, int id);
 void					get_file_size(t_data *data);
 void					write_hex_fd(long nbr, int fd);
 void					write_exec_to_fd(long nb, int fd);
-int						writing_to_file(t_data *data, int fd);
+int						writing_in_file(t_data *data, int fd);
 void					write_size_fd(long nb, int fd);
 void					write_args_to_fd(t_data *data, int ind_instr, \
 											int code_op, int fd);
