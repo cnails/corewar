@@ -17,7 +17,7 @@ int		parse_line(char *str, t_data *data)
 	if (check_is_a_comment(str) == 1)
 		return (-1);
 	if (data->header->is_comment == 0 || data->header->is_name == 0)
-		ft_parse_header(data->header, str, data->line_count);
+		parsing_of_header(data->header, str, data->line_count);
 	else if (data->header->is_comment == 1 && data->header->is_name == 1)
 		parsing_of_body(str, data);
 	return (1);

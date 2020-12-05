@@ -84,10 +84,10 @@ int				get_number_of_lines(t_data *data, int num)
 		sym = 0;
 		if (ft_strchr(string, LABEL_CHAR))
 		{
-			if ((str = ft_parse_label(string, &sym)) != NULL)
+			if ((str = parsing_of_label(string, &sym)) != NULL)
 			{
 				sym = 0;
-				label = ft_custom_strjoin(label, ft_parse_label(string, &sym));
+				label = ft_custom_strjoin(label, parsing_of_label(string, &sym));
 				ft_strdel(&str);
 			}
 		}

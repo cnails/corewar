@@ -62,7 +62,7 @@ void	initial_parsing_of_label(char *string, t_data *data, int *sym_num, \
 
 	if (ft_strchr(string, LABEL_CHAR))
 	{
-		good_label = ft_parse_label(string, sym_num);
+		good_label = parsing_of_label(string, sym_num);
 		*label = good_label;
 		if (good_label != NULL)
 		{
@@ -98,7 +98,7 @@ void	parsing_of_body(char *initial_string, t_data *data)
 		ft_strdel(&string);
 		return ;
 	}
-	ft_parse_function(string, &sym_num, data);
+	parsing_function(string, &sym_num, data);
 	parse_all_arguments(string, &sym_num, data);
 	count_size_of_block(data);
 	data->instr_num += 1;

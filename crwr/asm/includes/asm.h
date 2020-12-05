@@ -133,12 +133,12 @@ int						get_number_of_lines(t_data *data, int num);
 void					initialization_function(t_data *data, int n);
 int						parse_line(char *str, t_data *data);
 int						check_is_a_comment(char *string);
-int						ft_parse_header(t_header *header, char *line, \
-																int num_line);
+int						parsing_of_header(t_header *main, char *string, \
+																int line_num);
 void					read_whole_file(t_data *data);
 void					parsing_of_body(char *initial_string, t_data *data);
-char					*ft_parse_label(char *split, int *i);
-void					ft_parse_function(char *split, int *i, t_data *data);
+char					*parsing_of_label(char *arr, int *sym_num);
+void					parsing_function(char *split, int *i, t_data *data);
 void					parse_all_arguments(char *split, int *i, t_data *data);
 void					count_size_of_block(t_data *data);
 void					get_number(char *argument, t_data *data, int n);
