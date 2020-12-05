@@ -35,11 +35,8 @@ SRC_LOGIC_DIR := $(addprefix $(SRC_DIR), $(SRC_LOGIC_DIR))
 SRC_LOGIC_OP_DIR = operation/
 SRC_LOGIC_OP_DIR := $(addprefix $(SRC_LOGIC_DIR), $(SRC_LOGIC_OP_DIR))
 
-SRC_EXTRA_DIR = extra/
-SRC_EXTRA_DIR := $(addprefix $(SRC_DIR), $(SRC_EXTRA_DIR))
-
-SRC_DEBUG_DIR = debug/
-SRC_DEBUG_DIR := $(addprefix $(SRC_DIR), $(SRC_DEBUG_DIR))
+SRC_UTILS_DIR = utils/
+SRC_UTILS_DIR := $(addprefix $(SRC_DIR), $(SRC_UTILS_DIR))
 
 # SOURCES
 SRC_MAIN =  main \
@@ -70,15 +67,10 @@ SRC_LOGIC_OP =	add_aff_and_fork_ld \
 				
 SRC_LOGIC_OP := $(addsuffix .c, $(SRC_LOGIC_OP))
 
-SRC_EXTRA = extra
-SRC_EXTRA := $(addsuffix .c, $(SRC_EXTRA))
+SRC_UTILS = extra \
+			debug
 
-# SRC_VISUAL = visual
-# SRC_VISUAL := $(addsuffix .c, $(SRC_VISUAL))
-
-SRC_DEBUG = debug
-SRC_DEBUG := $(addsuffix .c, $(SRC_DEBUG))
-
+SRC_UTILS := $(addsuffix .c, $(SRC_UTILS))
 
 # FILE PATH TO LIB, PROGRAM SRC/OBJ FILES
 PROG_SRC := $(addprefix $(SRC_DIR), $(SRC_MAIN)) \
@@ -86,8 +78,8 @@ PROG_SRC := $(addprefix $(SRC_DIR), $(SRC_MAIN)) \
 			$(addprefix $(SRC_PARSE_DIR), $(SRC_PARSE)) \
 			$(addprefix $(SRC_LOGIC_DIR), $(SRC_LOGIC)) \
 			$(addprefix $(SRC_LOGIC_OP_DIR), $(SRC_LOGIC_OP)) \
-			$(addprefix $(SRC_EXTRA_DIR), $(SRC_EXTRA)) \
-			$(addprefix $(SRC_DEBUG_DIR), $(SRC_DEBUG))
+			$(addprefix $(SRC_UTILS_DIR), $(SRC_UTILS))
+
 L_NAME := $(addprefix $(L_DIR), $(L_NAME))
 
 all: $(L_RULE) $(PROG_NAME)

@@ -6,23 +6,23 @@
 /*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 18:17:21 by cnails            #+#    #+#             */
-/*   Updated: 2020/12/05 20:17:49 by cnails           ###   ########.fr       */
+/*   Updated: 2020/12/05 20:20:02 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		free_arrptr(void *array[])
+void		free_arrptr(void *arr[])
 {
 	uint32_t	i;
 
 	i = 0;
-	if (!array)
+	if (!arr)
 		return ;
-	while (array[i])
+	while (arr[i])
 	{
-		free(array[i]);
-		array[i] = NULL;
+		free(arr[i]);
+		arr[i] = NULL;
 		i++;
 	}
 }
@@ -55,26 +55,26 @@ void		init_arrptr(void **array, uint32_t size)
 	}
 }
 
-void		free_champ(t_champion *champ[])
+void		free_champ(t_champion *ch[])
 {
 	uint8_t	i;
 
 	i = 0;
-	if (!champ)
+	if (!ch)
 		return ;
-	while (champ[i])
+	while (ch[i])
 	{
-		free(champ[i]->code);
-		free(champ[i]);
-		champ[i] = NULL;
+		free(ch[i]->code);
+		free(ch[i]);
+		ch[i] = NULL;
 		i++;
 	}
 }
 
-void		free_carriage(t_carriage *carriage)
+void		free_carriage(t_carriage *car)
 {
-	if (!carriage)
+	if (!car)
 		return ;
-	free(carriage->args);
-	free(carriage);
+	free(car->args);
+	free(car);
 }
