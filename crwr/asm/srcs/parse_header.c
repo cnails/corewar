@@ -54,7 +54,7 @@ int				quotes_validation(char *string, int ind, int line_num)
 	return (num_start);
 }
 
-static size_t	length_of_str_char(const char *str, char ch)
+static size_t	le_ch(const char *str, char ch)
 {
 	size_t	i;
 
@@ -66,7 +66,7 @@ static size_t	length_of_str_char(const char *str, char ch)
 	return (i);
 }
 
-int				parsing_header_line(char *string, char *def, int i, int num_line)
+int				par_head_li(char *string, char *def, int i, int num_line)
 {
 	int		j;
 
@@ -82,22 +82,22 @@ int				parsing_of_header(t_header *main, char *string, int line_num)
 	int		s;
 
 	id = 0;
-	s = 0;
 	id = go_through_spaces(string, id);
 	if (!main->is_name && !ft_strncmp((string + id), N_CMD_STR, (LEN_N - 1)))
 	{
-		s = parsing_header_line(string, N_CMD_STR, (id + LEN_N), line_num);
-		if (length_of_str_char((string + s), '"') > PROG_NAME_LENGTH)
+		s = par_head_li(string, N_CMD_STR, (id + LEN_N), line_num);
+		if (le_ch((string + s), '"') > PROG_NAME_LENGTH)
 			length_og_error(0);
-		ft_strncpy(main->prog_name, (string + s), length_of_str_char((string + s), '"'));
+		ft_strncpy(main->prog_name, (string + s), le_ch((string + s), '"'));
 		main->is_name = 1;
 	}
-	else if (!main->is_comment && !ft_strncmp((string + id), C_CMD_STR, LEN_C - 1))
+	else if (!main->is_comment && !ft_strncmp((string + id),
+										C_CMD_STR, LEN_C - 1))
 	{
-		s = parsing_header_line(string, C_CMD_STR, (id + LEN_C), line_num);
-		if (length_of_str_char((string + s), '"') > COMMENT_LENGTH)
+		s = par_head_li(string, C_CMD_STR, (id + LEN_C), line_num);
+		if (le_ch((string + s), '"') > COMMENT_LENGTH)
 			length_og_error(1);
-		ft_strncpy(main->comment, (string + s), length_of_str_char((string + s), '"'));
+		ft_strncpy(main->comment, (string + s), le_ch((string + s), '"'));
 		main->is_comment = 1;
 	}
 	else

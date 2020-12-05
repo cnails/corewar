@@ -45,7 +45,8 @@ int		check_is_a_comment(char *string)
 	{
 		i++;
 	}
-	if (string[i] == COMMENT_CHAR || string[i] == ALT_COMMENT_CHAR || string[i] == '\0')
+	if (string[i] == COMMENT_CHAR \
+	|| string[i] == ALT_COMMENT_CHAR || string[i] == '\0')
 		return (1);
 	return (0);
 }

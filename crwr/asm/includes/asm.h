@@ -119,10 +119,10 @@ const t_op				g_op_tab[MAX_OP];
 
 int						label_validation(char *str);
 t_sort					*push_block(char *label);
-void					push_to_the_end(char *label, t_sort **sort);
+void					push_end(char *label, t_sort **sort);
 void					deleting_of_sort(t_sort **sort);
 void					exit_func(char *str);
-void					free_memory_and_write_error(char *err, char *line, \
+void					fr_mem_in(char *err, char *line, \
 													t_data *data, int ind_str);
 char					*ft_saved_name(char *str);
 void					close_fd(int a, int b, char *filename);
@@ -151,7 +151,7 @@ void					ft_check_all_data(t_data *data);
 void					ft_check_flags(char ***av, int ac);
 int						check_args(t_data *data);
 void					free_two_dim_array(char **array);
-void					free_memory_in_main_structure(t_data *data);
+void					free_mem_inst(t_data *data);
 void					ft_cor_extension(char *filename, t_data *data);
 int						put_something_to_file(t_data *data, int fd);
 int						writing_header_to_file(char *str, int size, int fd, \
@@ -174,6 +174,6 @@ int						put_dir_code(int args, int type, \
 int						get_code_op(char *name);
 int						write_header_in_file(char *str, int size, \
 												int fd, int f);
-void					instrsToFd(t_data *data, int fd);
+void					inst_fd(t_data *data, int fd);
 
 #endif

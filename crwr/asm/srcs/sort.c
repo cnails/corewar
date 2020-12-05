@@ -33,7 +33,7 @@ t_sort		*push_block(char *label)
 	return (sort);
 }
 
-void		push_to_the_end(char *label, t_sort **sort)
+void		push_end(char *label, t_sort **sort)
 {
 	t_sort	*last;
 	t_sort	*tmp;

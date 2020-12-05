@@ -28,4 +28,3 @@ void	ft_cor_extension(char *filename, t_data *data)
 	data->file = ft_strdup(filename);
 	ft_strdel(&filename);
 }
-
