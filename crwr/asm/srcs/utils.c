@@ -79,10 +79,10 @@ int				lines_num(t_data *data, int num)
 		c = 0;
 		if (ft_strchr(string, LABEL_CHAR))
 		{
-			if ((str = ft_parse_label(string, &c)) != NULL)
+			if ((str = parsing_of_label(string, &sym)) != NULL)
 			{
-				c = 0;
-				label = ft_strjoin_safe(label, ft_parse_label(string, &c));
+				sym = 0;
+				label = ft_custom_strjoin(label, parsing_of_label(string, &sym));
 				ft_strdel(&str);
 			}
 		}

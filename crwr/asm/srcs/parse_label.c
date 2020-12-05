@@ -13,27 +13,27 @@
 #include "asm.h"
 #include "../libft/includes/libftprintf.h"
 
-char		*ft_parse_label(char *split, int *i)
+char		*parsing_of_label(char *arr, int *sym_num)
 {
-	char	**labels;
-	char	*label;
+	char	**all_labels;
+	char	*one_label;
 
-	skip_spaces(split, i);
-	labels = ft_strsplit(&split[*i], LABEL_CHAR);
-	if (labels != NULL)
+	skip_spaces(arr, sym_num);
+	all_labels = ft_strsplit(&arr[*sym_num], LABEL_CHAR);
+	if (all_labels != NULL)
 	{
-		if (check_label(labels[0]))
+		if (label_validation(all_labels[0]))
 		{
-			(*i) += ft_strlen(labels[0]);
-			if (split[*i] && split[*i] == ':')
+			(*sym_num) += ft_strlen(all_labels[0]);
+			if (arr[*sym_num] && arr[*sym_num] == ':')
 			{
-				(*i)++;
-				label = ft_strdup(labels[0]);
-				free_massiv(labels);
-				return (label);
+				(*sym_num)++;
+				one_label = ft_strdup(all_labels[0]);
+				free_two_dim_array(all_labels);
+				return (one_label);
 			}
 		}
 	}
-	free_massiv(labels);
+	free_two_dim_array(all_labels);
 	return (NULL);
 }

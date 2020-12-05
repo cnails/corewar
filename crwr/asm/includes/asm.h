@@ -74,7 +74,7 @@ typedef struct			s_instr
 	t_arg				args[3];
 	char				*label;
 	int					id_instr;
-	int					get_file_size;
+	int					sum_size;
 	t_sort				*labels;
 }						t_instr;
 
@@ -117,7 +117,7 @@ typedef struct			s_op
 
 const t_op				g_op_tab[MAX_OP];
 
-int						check_label(char *label);
+int						label_validation(char *str);
 t_sort					*add_sorted(char *label);
 void					push_back(char *label, t_sort **sort);
 void					del_sorted(t_sort **sort);
@@ -130,19 +130,19 @@ void					skip_spaces(char *split, int *i);
 int						ft_is_number(char *name);
 int						array_len(char **args);
 int						lines_num(t_data *data, int num);
-void					ft_init_structs(t_data *data, int instr_num);
-int						ft_line_parser(char *str, t_data *data);
-int						ft_is_comment(char *str);
-int						ft_parse_header(t_header *header, char *line, \
-																int num_line);
-void					ft_read_file(t_data *data);
-void					ft_parse_body(char *str, t_data *data);
-char					*ft_parse_label(char *split, int *i);
-void					ft_parse_function(char *split, int *i, t_data *data);
-void					ft_parse_args(char *split, int *i, t_data *data);
-void					ft_count_size(t_data *data);
-void					extract_number(char *arg, t_data *data, int num_arg);
-void					ft_check_filename(char *name);
+void					initialization_function(t_data *data, int n);
+int						parse_line(char *str, t_data *data);
+int						check_is_a_comment(char *string);
+int						parsing_of_header(t_header *main, char *string, \
+																int line_num);
+void					read_whole_file(t_data *data);
+void					parsing_of_body(char *initial_string, t_data *data);
+char					*parsing_of_label(char *arr, int *sym_num);
+void					parsing_function(char *split, int *i, t_data *data);
+void					parse_all_arguments(char *split, int *i, t_data *data);
+void					count_size_of_block(t_data *data);
+void					get_number(char *argument, t_data *data, int n);
+void					validate_filename(char *filename);
 void					ft_check_header_file(void);
 void					ft_check_args(char **av, int ac);
 void					ft_check_filename(char *str);
@@ -150,18 +150,18 @@ int						check_label(char *label);
 void					ft_check_all_data(t_data *data);
 void					ft_check_flags(char ***av, int ac);
 int						valid_args(t_data *data);
-void					free_massiv(char **massiv);
-void					free_data(t_data *data);
+void					free_two_dim_array(char **array);
+void					free_memory_in_main_structure(t_data *data);
 void					ft_cor_extension(char *file, t_data *data);
 int						write_in_file(t_data *data, int fd);
 int						writing_header_to_file(char *str, int size, int fd, \
 																		int f);
-void					write_exec_to_fd(long nb, int fd);
-void					write_hex(long nbr, int fd);
-int						ft_skip(char *line, int id);
-void					get_file_size(t_data *data);
+void					write_magic_fd(long nb, int fd);
 void					write_hex_fd(long nbr, int fd);
-void					write_exec_to_fd(long nb, int fd);
+int						ft_skip(char *line, int id);
+void					sum_size(t_data *data);
+void					write_hex_fd(long nbr, int fd);
+void					write_magic_fd(long nb, int fd);
 int						writing_to_file(t_data *data, int fd);
 void					write_size_fd(long nb, int fd);
 void					write_args_to_fd(t_data *data, int ind_instr, \
@@ -172,8 +172,8 @@ int						code_args(t_arg *args);
 int						write_code_dir(int args, int type, \
 										int fd, int tdir_size);
 int						code_operation(char *name);
-int						write_header_in_file(char *str, int size, \
+int						write_header_to_file(char *str, int size, \
 												int fd, int f);
-void					write_instr_to_fd(t_data *data, int fd);
+void					write_instrs_to_fd(t_data *data, int fd);
 
 #endif
