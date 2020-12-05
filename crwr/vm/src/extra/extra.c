@@ -6,23 +6,23 @@
 /*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 18:17:21 by cnails            #+#    #+#             */
-/*   Updated: 2020/12/05 20:17:49 by cnails           ###   ########.fr       */
+/*   Updated: 2020/12/05 20:19:31 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		free_arrptr(void *array[])
+void		free_arrptr(void *arr[])
 {
 	uint32_t	i;
 
 	i = 0;
-	if (!array)
+	if (!arr)
 		return ;
-	while (array[i])
+	while (arr[i])
 	{
-		free(array[i]);
-		array[i] = NULL;
+		free(arr[i]);
+		arr[i] = NULL;
 		i++;
 	}
 }
@@ -71,10 +71,10 @@ void		free_champ(t_champion *champ[])
 	}
 }
 
-void		free_carriage(t_carriage *carriage)
+void		free_carriage(t_carriage *car)
 {
-	if (!carriage)
+	if (!car)
 		return ;
-	free(carriage->args);
-	free(carriage);
+	free(car->args);
+	free(car);
 }
