@@ -117,12 +117,12 @@ typedef struct			s_op
 
 const t_op				g_op_tab[MAX_OP];
 
-int						check_label(char *label);
+int						label_validation(char *str);
 t_sort					*add_block(char *label);
 void					push_end(char *label, t_sort **sort);
 void					sort_del(t_sort **sort);
 void					ft_exit(char *str);
-void					free_fd_put_error(char *err, char *line, \
+void					free_memory_and_write_error(char *err, char *line, \
 													t_data *data, int ind_str);
 char					*ft_saved_name(char *str);
 void					ft_close_fd(int a, int b, char *filename);
@@ -130,29 +130,29 @@ void					skip_spaces(char *split, int *i);
 int						ft_is_number(char *name);
 int						massiv_len(char **args);
 int						get_number_of_lines(t_data *data, int num);
-void					ft_init_structs(t_data *data, int instr_num);
-int						ft_line_parser(char *str, t_data *data);
-int						ft_is_comment(char *str);
+void					initialization_function(t_data *data, int n);
+int						parse_line(char *str, t_data *data);
+int						check_is_a_comment(char *string);
 int						ft_parse_header(t_header *header, char *line, \
 																int num_line);
-void					ft_read_file(t_data *data);
-void					ft_parse_body(char *str, t_data *data);
+void					read_whole_file(t_data *data);
+void					parsing_of_body(char *initial_string, t_data *data);
 char					*ft_parse_label(char *split, int *i);
 void					ft_parse_function(char *split, int *i, t_data *data);
-void					ft_parse_args(char *split, int *i, t_data *data);
-void					ft_count_size(t_data *data);
-void					extract_number(char *arg, t_data *data, int num_arg);
-void					ft_check_filename(char *name);
+void					parse_all_arguments(char *split, int *i, t_data *data);
+void					count_size_of_block(t_data *data);
+void					get_number(char *argument, t_data *data, int n);
+void					validate_filename(char *filename);
 void					ft_check_header_file(void);
 void					ft_check_args(char **av, int ac);
-void					ft_check_filename(char *str);
-int						check_label(char *label);
+void					validate_filename(char *filename);
+int						label_validation(char *str);
 void					ft_check_all_data(t_data *data);
 void					ft_check_flags(char ***av, int ac);
 int						valid_args(t_data *data);
-void					free_massiv(char **massiv);
-void					free_data(t_data *data);
-void					ft_cor_extension(char *file, t_data *data);
+void					free_two_dim_array(char **array);
+void					free_memory_in_main_structure(t_data *data);
+void					ft_cor_extension(char *filename, t_data *data);
 int						writing_to_file(t_data *data, int fd);
 int						writing_header_to_file(char *str, int size, int fd, \
 																		int f);

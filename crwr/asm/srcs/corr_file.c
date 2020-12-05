@@ -12,19 +12,20 @@
 
 #include "asm.h"
 
-void	ft_cor_extension(char *file, t_data *data)
+void	validate_filename(char *filename)
 {
-	char	*filename;
+	if (ft_strlen(ft_strstr(filename, ".s")) != 2)
+		ft_exit("Bad file filename\n");
+}
 
-	filename = ft_strsub(file, 0, ft_strlen(file) - 2);
-	file = ft_strjoin(filename, ".cor");
+void	ft_cor_extension(char *filename, t_data *data)
+{
+	char	*file_name;
+
+	file_name = ft_strsub(filename, 0, ft_strlen(filename) - 2);
+	filename = ft_strjoin(file_name, ".cor");
+	ft_strdel(&file_name);
+	data->file = ft_strdup(filename);
 	ft_strdel(&filename);
-	data->file = ft_strdup(file);
-	ft_strdel(&file);
 }
 
-void	ft_check_filename(char *name)
-{
-	if (ft_strlen(ft_strstr(name, ".s")) != 2)
-		ft_exit("Bad file name\n");
-}

@@ -22,18 +22,18 @@ char		*ft_parse_label(char *split, int *i)
 	labels = ft_strsplit(&split[*i], LABEL_CHAR);
 	if (labels != NULL)
 	{
-		if (check_label(labels[0]))
+		if (label_validation(labels[0]))
 		{
 			(*i) += ft_strlen(labels[0]);
 			if (split[*i] && split[*i] == ':')
 			{
 				(*i)++;
 				label = ft_strdup(labels[0]);
-				free_massiv(labels);
+				free_two_dim_array(labels);
 				return (label);
 			}
 		}
 	}
-	free_massiv(labels);
+	free_two_dim_array(labels);
 	return (NULL);
 }

@@ -43,11 +43,11 @@ char		*split_and_get_function_name(char *split, char split_char, \
 										check_valid_function(function[0], data))
 	{
 		name = ft_strtrim(function[0]);
-		free_massiv(function);
+		free_two_dim_array(function);
 		return (name);
 	}
 	if (function != NULL)
-		free_massiv(function);
+		free_two_dim_array(function);
 	return (NULL);
 }
 
@@ -75,5 +75,5 @@ void		ft_parse_function(char *split, int *i, t_data *data)
 		(*i) += ft_strlen(name);
 	}
 	else
-		free_fd_put_error("Invalid function name", split, data, *i);
+		free_memory_and_write_error("Invalid function name", split, data, *i);
 }
