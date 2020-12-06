@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "asm.h"
-#include "../libft/includes/libftprintf.h"
+#include "libftprintf.h"
 
 char		*ft_parse_label(char *split, int *i)
 {

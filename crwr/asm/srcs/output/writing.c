@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "asm.h"
 #include "error.h"
-#include "../libft/includes/libftprintf.h"
+#include "libftprintf.h"
 
 int		write_header_to_file(char *str, int size, int fd, int f)
 {

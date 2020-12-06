@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "asm.h"
-#include "../libft/includes/libftprintf.h"
+#include "libftprintf.h"
 
 void	ft_error(char *err, char *line, int num_str, int ind_str)
 {

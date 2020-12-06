@@ -1,5 +1,5 @@
 NAME := asm
-#CFLAGS := -Wall -Wextra -Werror
+# CFLAGS := -Wall -Wextra -Werror
 
 LIBFT_DIR = libft/
 LIBFT := $(LIBFT_DIR)libft.a
@@ -12,16 +12,16 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LST))
 INCLUDES := -I $(HEADERS_DIR) -I $(LIBFT_HEADERS_DIR)
 
 SRC_DIR = srcs/
-SRC_DIR_PARSE = parse/
-SRC_DIR_LOGIC = logic/
+SRC_DIR_PARSE = parsing/
+SRC_DIR_LOGIC = utils/
 SRC_DIR_OUTPUT = output/
 
-SRC_MAIN = sort.c main.c parse_header.c writing.c writing2.c writing3.c utils.c utils2.c checking_label.c parse.c error.c exec_structs.c parse_body.c corr_file.c parse_label.c parse_function.c parse_args.c free_functions.c valid_args.c count_len.c options.c
-SRC_PARSE_FILES =
-SRC_LOGIC_FILES =
-SRC_OUTPUT_FILES =
+SRC_MAIN = main.c
+SRC_PARSE_FILES = parsing.c body_parsing.c function_parsing.c header_parsing.c label_parsing.c args_parsing.c
+SRC_LOGIC_FILES = utils.c utils2.c validate_label.c error.c free_functions.c valid_args.c count_len.c op.c list.c
+SRC_OUTPUT_FILES = writing.c writing2.c writing3.c corr_file.c exec_structs.c
 
-SRC_PARSE = $(addprefix $(SRC_DIR_PARSE), $(chSRC_PARSE_FILES))
+SRC_PARSE = $(addprefix $(SRC_DIR_PARSE), $(SRC_PARSE_FILES))
 SRC_VALIDATE = $(addprefix $(SRC_DIR_VALIDATE), $(SRC_VALIDATE_FILES))
 SRC_LOGIC = $(addprefix $(SRC_DIR_LOGIC), $(SRC_LOGIC_FILES))
 SRC_OUTPUT = $(addprefix $(SRC_DIR_OUTPUT), $(SRC_OUTPUT_FILES))
