@@ -100,12 +100,3 @@ fclean: clean
 	@rm -f $(PROG_NAME)
 
 re: fclean all
-
-# main: producer.o consumer.o AddRemove.o
-#    $(COMPILER) -pthread $(CCFLAGS) -o producer.o consumer.o AddRemove.o
-# неправильный. Он говорит, чтобы создать файл с именем producer.o, но вы хотите
-# создать файл с именем main . Пожалуйста, извините за крик, но всегда
-# используйте $@ для ссылки на цель :
-
-# main: producer.o consumer.o AddRemove.o
-#    $(COMPILER) -pthread $(CCFLAGS) -o $@ producer.o consumer.o AddRemove.o
