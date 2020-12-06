@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:31:47 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-/*
-** The function checks for any printable character including space.
-**
-** Функция проверяет, является ли символ печатаемым (включая пробел).
-*/
-
-int				ft_isprint(int c)
+int		ft_isprint(int c)
 {
-	return (c >= 32 && c <= 126 ? 1 : 0);
+	if ((c >= 32 && c <= 126))
+		return (1);
+	else
+		return (0);
 }

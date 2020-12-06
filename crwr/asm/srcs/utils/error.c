@@ -3,44 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libftprintf.h"
 
-void	ft_error(char *err, char *line, int num_str, int ind_str)
+void	error_function_for_body(char *error_name, char *str, int n, int column)
 {
-	int		i;
-
-	i = 0;
-	ft_putstr_fd(err, 2);
-	ft_putstr_fd(" [", 2);
-	ft_putnbr_fd(num_str, 2);
+	ft_putstr_fd(error_name, 2);
+	ft_putstr_fd(", [", 2);
+	ft_putnbr_fd(n, 2);
 	ft_putstr_fd(":", 2);
-	ft_putnbr_fd(ind_str, 2);
+	ft_putnbr_fd(column, 2);
 	ft_putstr_fd("]", 2);
-	if (line)
-	{
-		write(2, " INSTRUCTION \"", 14);
-		while (line[i] != ' ' && line[i] != '\t' && line[i] != COMMENT_CHAR && \
-							line[i] != ALT_COMMENT_CHAR && line[i] != '\0')
-		{
-			ft_putchar_fd(line[i], 2);
-			i++;
-		}
-		write(2, "\"\n", 2);
-	}
-	else
-		write(2, "\n", 1);
+	ft_putstr_fd(", line:'", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("'", 2);
 	exit(1);
 }
 
-void	ft_error_length(int f)
+void	length_og_error(int f)
 {
 	if (f == 0)
 	{
@@ -57,25 +44,39 @@ void	ft_error_length(int f)
 	exit(1);
 }
 
-void	ft_error_parse_body(char *err, char *line, int line_count, int ind_str)
-{
-	ft_putstr_fd(err, 2);
-	ft_putstr_fd(", [", 2);
-	ft_putnbr_fd(line_count, 2);
-	ft_putstr_fd(":", 2);
-	ft_putnbr_fd(ind_str, 2);
-	ft_putstr_fd("]", 2);
-	ft_putstr_fd(", line:'", 2);
-	ft_putstr_fd(line, 2);
-	ft_putendl_fd("'", 2);
-	exit(1);
-}
-
-void	free_fd_put_error(char *err, char *line, t_data *data, int ind_str)
+void	fr_mem_in(char *err, char *line, t_data *data, int ind_str)
 {
 	int line_count;
 
 	line_count = data->line_count;
-	free_data(data);
-	ft_error_parse_body(err, line, line_count, ind_str);
+	free_mem_inst(data);
+	error_function_for_body(err, line, line_count, ind_str);
+}
+
+void	error_function(char *name_error, char *string, int n, int column)
+{
+	int		i;
+
+	i = 0;
+	ft_putstr_fd(name_error, 2);
+	ft_putstr_fd(" [", 2);
+	ft_putnbr_fd(n, 2);
+	ft_putstr_fd(":", 2);
+	ft_putnbr_fd(column, 2);
+	ft_putstr_fd("]", 2);
+	if (string)
+	{
+		write(2, " INSTRUCTION \"", 14);
+		while (string[i] != ' ' && string[i] != '\t' \
+		&& string[i] != COMMENT_CHAR \
+		&& string[i] != ALT_COMMENT_CHAR && string[i] != '\0')
+		{
+			ft_putchar_fd(string[i], 2);
+			i++;
+		}
+		write(2, "\"\n", 2);
+	}
+	else
+		write(2, "\n", 1);
+	exit(1);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-# include "op.h"
+# include "options.h"
 # include "error.h"
 # include "libftprintf.h"
 # include <sys/types.h>
@@ -117,63 +117,63 @@ typedef struct			s_op
 
 const t_op				g_op_tab[MAX_OP];
 
-int						check_label(char *label);
-t_sort					*add_block(char *label);
+int						label_validation(char *str);
+t_sort					*push_block(char *label);
 void					push_end(char *label, t_sort **sort);
-void					sort_del(t_sort **sort);
-void					ft_exit(char *str);
-void					free_fd_put_error(char *err, char *line, \
+void					deleting_of_sort(t_sort **sort);
+void					exit_func(char *str);
+void					fr_mem_in(char *err, char *line, \
 													t_data *data, int ind_str);
 char					*ft_saved_name(char *str);
-void					ft_close_fd(int a, int b, char *filename);
-void					skip_spaces(char *split, int *i);
-int						ft_is_number(char *name);
-int						massiv_len(char **args);
-int						get_number_of_lines(t_data *data, int num);
-void					ft_init_structs(t_data *data, int instr_num);
-int						ft_line_parser(char *str, t_data *data);
-int						ft_is_comment(char *str);
-int						ft_parse_header(t_header *header, char *line, \
-																int num_line);
-void					ft_read_file(t_data *data);
-void					ft_parse_body(char *str, t_data *data);
-char					*ft_parse_label(char *split, int *i);
-void					ft_parse_function(char *split, int *i, t_data *data);
-void					ft_parse_args(char *split, int *i, t_data *data);
-void					ft_count_size(t_data *data);
-void					extract_number(char *arg, t_data *data, int num_arg);
-void					ft_check_filename(char *name);
+void					close_fd(int a, int b, char *filename);
+void					eliminate_spaces(char *split, int *i);
+int						validate_number(char *name);
+int						length_of_massiv(char **args);
+int						count_number_lines(t_data *data, int num);
+void					initialization_function(t_data *data, int n);
+int						parse_line(char *str, t_data *data);
+int						check_is_a_comment(char *string);
+int						parsing_of_header(t_header *main, char *string, \
+																int line_num);
+void					read_whole_file(t_data *data);
+void					parsing_of_body(char *initial_string, t_data *data);
+char					*parsing_of_label(char *arr, int *sym_num);
+void					parsing_function(char *split, int *i, t_data *data);
+void					parse_all_arguments(char *split, int *i, t_data *data);
+void					count_size_of_block(t_data *data);
+void					get_number(char *argument, t_data *data, int n);
+void					validate_filename(char *filename);
 void					ft_check_header_file(void);
 void					ft_check_args(char **av, int ac);
-void					ft_check_filename(char *str);
-int						check_label(char *label);
+void					validate_filename(char *filename);
+int						label_validation(char *str);
 void					ft_check_all_data(t_data *data);
 void					ft_check_flags(char ***av, int ac);
-int						valid_args(t_data *data);
-void					free_massiv(char **massiv);
-void					free_data(t_data *data);
-void					ft_cor_extension(char *file, t_data *data);
-int						writing_to_file(t_data *data, int fd);
+int						check_args(t_data *data);
+void					free_two_dim_array(char **array);
+void					free_mem_inst(t_data *data);
+void					ft_cor_extension(char *filename, t_data *data);
+int						put_something_to_file(t_data *data, int fd);
 int						writing_header_to_file(char *str, int size, int fd, \
 																		int f);
-void					write_magic_fd(long nb, int fd);
-void					write_hex_fd(long nbr, int fd);
-int						ft_skip(char *line, int id);
-void					sum_size(t_data *data);
-void					write_hex_fd(long nbr, int fd);
-void					write_magic_fd(long nb, int fd);
-int						writing_to_file(t_data *data, int fd);
-void					write_size_fd(long nb, int fd);
-void					write_args_to_fd(t_data *data, int ind_instr, \
+void					magic_number_put_fd(long nb, int fd);
+void					put_to_fd(long nbr, int fd);
+int						go_through_spaces(char *line, int id);
+void					count_sum_size(t_data *data);
+void					put_to_fd(long nbr, int fd);
+void					magic_number_put_fd(long nb, int fd);
+int						put_something_to_file(t_data *data, int fd);
+void					put_magic_to_fd(long nb, int fd);
+void					wput_args_to_fd(t_data *data, int ind_instr, \
 											int code_op, int fd);
-int						size_to_label(t_data *data, t_arg *args, int cur_size, \
+int						count_label_size(t_data *data, t_arg *args, int cur_size, \
 										int tdir_size);
-int						code_args(t_arg *args);
-int						write_code_dir(int args, int type, \
-										int fd, int tdir_size);
-int						code_operation(char *name);
-int						write_header_to_file(char *str, int size, \
+int						args_to_code(t_arg *args);
+int						put_dir_code(int args, int type, \
+										int fd, int sizeof_t_dir);
+int						get_code_op(char *name);
+int						write_header_in_file(char *str, int size, \
 												int fd, int f);
-void					write_instrs_to_fd(t_data *data, int fd);
+void					inst_fd(t_data *data, int fd);
 
 #endif

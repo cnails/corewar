@@ -3,49 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:31:47 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "../../include/libft.h"
 
-/*
-** The ft_strjoin() finction allocates (with malloc(3)) and returns a “fresh”
-** string ending with ’\0’, result of the concatenation of s1 and s2.
-** If the allocation fails the function returns NULL
-**
-** Функция ft_strjoin() распределяет (с помощью malloc (3))
-** и возвращает «свежую» строку, заканчивающуюся на «0»,
-** в результате объединения s1 и s2.
-** Если распределение не выполнено, функция возвращает NULL
-*/
-
-char			*ft_strjoin(char const *s1, char const *s2)
+static char	*my_strncat(char *dest, const char *src, size_t n, size_t len)
 {
-	char		*dest;
-	size_t		i;
+	char	*buf;
 
-	if (!s1 || !s2)
-		return (NULL);
-	i = 0;
-	dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!dest)
-		return (NULL);
-	while (*s1)
+	buf = dest;
+	buf = buf + len;
+	while (*src && n--)
 	{
-		dest[i] = *s1;
-		i++;
-		s1++;
+		*buf++ = *src++;
 	}
-	while (*s2)
-	{
-		dest[i] = *s2;
-		i++;
-		s2++;
-	}
-	dest[i] = '\0';
+	*buf = 0;
 	return (dest);
+}
+
+char		*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*new_str;
+	size_t	len_1;
+	size_t	len_2;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	len_1 = ft_strlen(s1);
+	len_2 = ft_strlen(s2);
+	new_str = (char*)ft_memalloc(len_1 + len_2 + 1);
+	if (new_str == NULL)
+		return (NULL);
+	new_str = my_strncat(new_str, s1, len_1, 0);
+	new_str = my_strncat(new_str, s2, len_2, len_1);
+	return (new_str);
 }

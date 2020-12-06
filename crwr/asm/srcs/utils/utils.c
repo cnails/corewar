@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void			skip_spaces(char *split, int *i)
+void			eliminate_spaces(char *split, int *i)
 {
 	while (split[*i] && (split[*i] == ' ' || split[*i] == '\t'))
 	{
@@ -20,7 +20,7 @@ void			skip_spaces(char *split, int *i)
 	}
 }
 
-int				ft_is_number(char *name)
+int				validate_number(char *name)
 {
 	int i;
 
@@ -39,7 +39,7 @@ int				ft_is_number(char *name)
 	return (1);
 }
 
-int				massiv_len(char **args)
+int				length_of_massiv(char **args)
 {
 	int i;
 
@@ -51,7 +51,7 @@ int				massiv_len(char **args)
 	return (i);
 }
 
-static char		*ft_custom_strjoin(char *s1, char *s2)
+static char		*strjoin_our(char *s1, char *s2)
 {
 	char	*ans;
 	size_t	len;
@@ -70,24 +70,24 @@ static char		*ft_custom_strjoin(char *s1, char *s2)
 	return (ans);
 }
 
-int				get_number_of_lines(t_data *data, int num)
+int				count_number_lines(t_data *data, int num)
 {
 	char	*string;
 	char	*label;
-	int		sym;
+	int		i;
 	char	*str;
 
 	str = NULL;
 	label = ft_strdup(" ");
 	while (get_next_line(data->read_fd, &string) && (num = num + 1) > -10)
 	{
-		sym = 0;
+		i = 0;
 		if (ft_strchr(string, LABEL_CHAR))
 		{
-			if ((str = ft_parse_label(string, &sym)) != NULL)
+			if ((str = parsing_of_label(string, &i)) != NULL)
 			{
-				sym = 0;
-				label = ft_custom_strjoin(label, ft_parse_label(string, &sym));
+				i = 0;
+				label = strjoin_our(label, parsing_of_label(string, &i));
 				ft_strdel(&str);
 			}
 		}

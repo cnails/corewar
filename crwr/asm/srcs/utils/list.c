@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_sort		*get_next(t_sort *map)
+t_sort		*go_to_next(t_sort *sort)
 {
-	if (map == NULL)
+	if (sort == NULL)
 		return (NULL);
-	while (map->next)
-		map = map->next;
-	return (map);
+	while (sort->next)
+		sort = sort->next;
+	return (sort);
 }
 
-t_sort		*add_block(char *label)
+t_sort		*push_block(char *label)
 {
 	t_sort	*sort;
 
@@ -38,8 +38,8 @@ void		push_end(char *label, t_sort **sort)
 	t_sort	*last;
 	t_sort	*tmp;
 
-	last = get_next(*sort);
-	tmp = add_block(label);
+	last = go_to_next(*sort);
+	tmp = push_block(label);
 	if (last == NULL)
 	{
 		(*sort) = tmp;
@@ -50,7 +50,7 @@ void		push_end(char *label, t_sort **sort)
 	}
 }
 
-void		sort_del(t_sort **sort)
+void		deleting_of_sort(t_sort **sort)
 {
 	t_sort *next;
 

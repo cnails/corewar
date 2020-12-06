@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_header.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,47 @@
 #include "error.h"
 #include "libftprintf.h"
 
-void			sin_err(char *line, int i, int num_line)
+void			error_sync(char *string, int ind, int line_num)
 {
-	while (line[i] != COMMENT_CHAR && \
-			line[i] != ALT_COMMENT_CHAR && line[i] != '\0')
+	while (string[ind] != COMMENT_CHAR && \
+			string[ind] != ALT_COMMENT_CHAR && string[ind] != '\0')
 	{
-		if (line[i] != ' ' && line[i] != '\t')
-			ft_error(SYN_ERR, (line + i), num_line, i + 1);
-		i++;
+		if (string[ind] != ' ' && string[ind] != '\t')
+			error_function(SYN_ERR, (string + ind), line_num, ind + 1);
+		ind++;
 	}
 }
 
-int				valid_quotes(char *line, int ind, int num_line)
+int				quotes_validation(char *string, int ind, int line_num)
 {
 	int		i;
-	int		quotes;
-	int		start;
+	int		quotes_num;
+	int		num_start;
 
 	i = ind;
-	quotes = 0;
-	start = -1;
-	while (line[i] == ' ' || line[i] == '\t')
+	quotes_num = 0;
+	num_start = -1;
+	while (string[i] == ' ' || string[i] == '\t')
 		i++;
-	if (line[i] == '"')
+	if (string[i] == '"')
 	{
-		quotes++;
+		quotes_num++;
 		i++;
-		start = i;
-		while (line[i] != '"' && line[i] != '\0')
+		num_start = i;
+		while (string[i] != '"' && string[i] != '\0')
 			i++;
-		line[i] == '"' ? quotes++ : 0;
+		string[i] == '"' ? quotes_num++ : 0;
 		i++;
-		if (quotes != 2)
-			ft_error(LEX_ERR, NULL, num_line, ind + 1);
+		if (quotes_num != 2)
+			error_function(LEX_ERR, NULL, line_num, ind + 1);
 	}
 	else
-		ft_error(SYN_ERR, (line + i), num_line, i + 1);
-	sin_err(line, i, num_line);
-	return (start);
+		error_function(SYN_ERR, (string + i), line_num, i + 1);
+	error_sync(string, i, line_num);
+	return (num_start);
 }
 
-static size_t	ft_strlen_char(const char *str, char ch)
+static size_t	le_ch(const char *str, char ch)
 {
 	size_t	i;
 
@@ -66,45 +66,41 @@ static size_t	ft_strlen_char(const char *str, char ch)
 	return (i);
 }
 
-int				parse_line_header(char *line, char *def, int ind, int num_line)
+int				par_head_li(char *string, char *def, int i, int num_line)
 {
-	int		i;
 	int		j;
-	char	*str;
 
-	i = 0;
-	j = valid_quotes(line, ind, num_line);
-	str = NULL;
+	j = quotes_validation(string, i, num_line);
 	if (j != -1)
 		return (j);
 	return (-1);
 }
 
-int				ft_parse_header(t_header *head, char *ln, int num_line)
+int				parsing_of_header(t_header *main, char *string, int line_num)
 {
 	int		id;
 	int		s;
 
 	id = 0;
-	s = 0;
-	id = ft_skip(ln, id);
-	if (!head->is_name && !ft_strncmp((ln + id), N_CMD_STR, (LEN_N - 1)))
+	id = go_through_spaces(string, id);
+	if (!main->is_name && !ft_strncmp((string + id), N_CMD_STR, (LEN_N - 1)))
 	{
-		s = parse_line_header(ln, N_CMD_STR, (id + LEN_N), num_line);
-		if (ft_strlen_char((ln + s), '"') > PROG_NAME_LENGTH)
-			ft_error_length(0);
-		ft_strncpy(head->prog_name, (ln + s), ft_strlen_char((ln + s), '"'));
-		head->is_name = 1;
+		s = par_head_li(string, N_CMD_STR, (id + LEN_N), line_num);
+		if (le_ch((string + s), '"') > PROG_NAME_LENGTH)
+			length_og_error(0);
+		ft_strncpy(main->prog_name, (string + s), le_ch((string + s), '"'));
+		main->is_name = 1;
 	}
-	else if (!head->is_comment && !ft_strncmp((ln + id), C_CMD_STR, LEN_C - 1))
+	else if (!main->is_comment && !ft_strncmp((string + id),
+										C_CMD_STR, LEN_C - 1))
 	{
-		s = parse_line_header(ln, C_CMD_STR, (id + LEN_C), num_line);
-		if (ft_strlen_char((ln + s), '"') > COMMENT_LENGTH)
-			ft_error_length(1);
-		ft_strncpy(head->comment, (ln + s), ft_strlen_char((ln + s), '"'));
-		head->is_comment = 1;
+		s = par_head_li(string, C_CMD_STR, (id + LEN_C), line_num);
+		if (le_ch((string + s), '"') > COMMENT_LENGTH)
+			length_og_error(1);
+		ft_strncpy(main->comment, (string + s), le_ch((string + s), '"'));
+		main->is_comment = 1;
 	}
 	else
-		ft_error(LEX_ERR, NULL, num_line, id + 1);
+		error_function(LEX_ERR, NULL, line_num, id + 1);
 	return (0);
 }

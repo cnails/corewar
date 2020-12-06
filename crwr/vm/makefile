@@ -1,5 +1,7 @@
 .PHONY: all clean fclean re
 
+# compil: valgrind ./vm/corewar vm/trash_test/Backward.cor vm/trash_test/ex.cor vm/trash_test/42.cor
+
 # COLORS
 BLUE = "\033[0;34m"
 RESET = "\033[0m"
@@ -98,12 +100,3 @@ fclean: clean
 	@rm -f $(PROG_NAME)
 
 re: fclean all
-
-# main: producer.o consumer.o AddRemove.o
-#    $(COMPILER) -pthread $(CCFLAGS) -o producer.o consumer.o AddRemove.o
-# неправильный. Он говорит, чтобы создать файл с именем producer.o, но вы хотите
-# создать файл с именем main . Пожалуйста, извините за крик, но всегда
-# используйте $@ для ссылки на цель :
-
-# main: producer.o consumer.o AddRemove.o
-#    $(COMPILER) -pthread $(CCFLAGS) -o $@ producer.o consumer.o AddRemove.o

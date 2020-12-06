@@ -3,74 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/11/14 21:00:45 by hcloves           #+#    #+#             */
+/*   Updated: 2020/12/05 21:42:27 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/get_next_line.h"
+#include "../../include/libft.h"
 
-static int		sfd_manage_next_line(char **sfd, char **line)
+int			get_next_line(const int fd, char **line)
 {
-	unsigned int	len;
-	char			*temp;
+	static t_my_list	*ptr;
+	char				*str;
+
+	str = ft_strnew(1);
+	if (fd < 0 || str == NULL)
+		return (-1);
+	return (gnl(fd, &ptr, line, str));
+}
+
+int			gnl(int fd, t_my_list **fd_line, char **line, char *str)
+{
+	int		num;
+	int		rtn;
+	size_t	len;
 
 	len = 0;
-	while ((*sfd)[len] != '\n' && (*sfd)[len])
-		len++;
-	if ((*sfd)[len] == '\n')
+	if (*fd_line == NULL)
 	{
-		*line = ft_strsub(*sfd, 0, len);
-		temp = ft_strdup(*sfd + len + 1);
-		free(*sfd);
-		*sfd = temp;
-		if ((*sfd)[0] == '\0')
-			ft_strdel(sfd);
+		if ((*fd_line = ft_fdnew(fd)) == NULL)
+			return (-1);
 	}
-	else
+	else if ((*fd_line)->file != fd)
 	{
-		*line = ft_strdup(*sfd);
-		ft_strdel(sfd);
+		rtn = gnl(fd, &((*fd_line)->next), line, str);
+		return (rtn);
 	}
-	return (1);
+	if ((rtn = read_line(&str, fd_line, 0, &len)) == -1)
+		return (-1);
+	num = ft_intchr(str, '\n', ft_strlen(str));
+	ft_strdel(&((*fd_line)->content));
+	(*fd_line)->content = (num == -1) ? ft_strnew(1) : ft_strdup(str + num + 1);
+	if (num != -1)
+		*(str + num) = '\0';
+	*line = str;
+	return (rtn);
 }
 
-static int		ft_er(int res, char **sfd)
+int			read_line(char **str, t_my_list **ptr_list, int num, size_t *len)
 {
-	if (res < 0)
-		return (-1);
-	else if (*sfd == NULL)
-		return (0);
-	return (0);
-}
+	int		end_line;
+	char	str_read[BUFF_SIZE + 1];
+	char	*tmp;
+	char	*del;
 
-int				get_next_line(const int fd, char **line)
-{
-	static char		*sfd[FD];
-	char			strg[BUFF_SIZE + 1];
-	char			*temp;
-	int				res;
-
-	ft_memdel((void **)&(*line));
-	if (!line || fd < 0 || BUFF_SIZE <= 0)
-		return (-1);
-	while ((res = read(fd, strg, BUFF_SIZE)) > 0)
+	while ((end_line = read((*ptr_list)->file, str_read, BUFF_SIZE)) > 0)
 	{
-		strg[res] = '\0';
-		if (sfd[fd] == NULL)
-			sfd[fd] = ft_strdup(strg);
-		else
-		{
-			temp = ft_strjoin(sfd[fd], strg);
-			free(sfd[fd]);
-			sfd[fd] = temp;
-		}
-		if (ft_strchr(sfd[fd], '\n') != NULL)
+		str_read[end_line] = '\0';
+		*len += end_line;
+		if ((tmp = ft_strjoin(*str, str_read)) == NULL)
+			return (-1);
+		ft_strdel(str);
+		*str = tmp;
+		if ((num = ft_intchr(str_read, '\n', end_line)) != -1)
 			break ;
 	}
-	if (res < 0 || sfd[fd] == NULL)
-		return (ft_er(res, &sfd[fd]));
-	return (sfd_manage_next_line(&sfd[fd], line));
+	if ((tmp = ft_strjoin((*ptr_list)->content, *str)) == NULL)
+		return (-1);
+	del = *str;
+	*str = tmp;
+	ft_strdel(&del);
+	if (end_line < 0)
+		return (-1);
+	end_line = (end_line == 0 && ft_strlen(*str) == 0) ? 0 : 1;
+	return (end_line);
+}
+
+t_my_list	*ft_fdnew(int fd)
+{
+	t_my_list *ptr;
+
+	ptr = NULL;
+	ptr = (t_my_list *)malloc(sizeof(t_my_list));
+	if (ptr == NULL || fd < 0)
+		return (NULL);
+	ptr->content = ft_strnew(1);
+	if (ptr->content == NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	ptr->file = fd;
+	ptr->next = NULL;
+	return (ptr);
+}
+
+int			ft_intchr(char *str, char c, size_t len)
+{
+	size_t result;
+
+	result = 0;
+	while (str[result] != c && str[result])
+		result++;
+	return (result == len ? -1 : (int)result);
 }

@@ -3,59 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	free_massiv(char **massiv)
-{
-	int i;
-
-	i = 0;
-	if (!massiv)
-		return ;
-	while (massiv[i])
-	{
-		free(massiv[i]);
-		i++;
-	}
-	free(massiv);
-}
-
-void	free_instrs(t_data *data, int i)
+void	mem_in_bl(t_data *data, int num_instr)
 {
 	int j;
 
 	j = 0;
-	if (data->instrs[i].labels != NULL)
-		sort_del(&data->instrs[i].labels);
-	ft_strdel(&data->instrs[i].name);
-	ft_strdel(&data->instrs[i].label);
+	if (data->instrs[num_instr].labels != NULL)
+		deleting_of_sort(&data->instrs[num_instr].labels);
+	ft_strdel(&data->instrs[num_instr].name);
+	ft_strdel(&data->instrs[num_instr].label);
 	while (j < 3)
 	{
-		ft_strdel(&data->instrs[i].args[j].label);
+		ft_strdel(&data->instrs[num_instr].args[j].label);
 		j++;
 	}
 }
 
-void	free_data(t_data *data)
+void	free_two_dim_array(char **array)
 {
 	int i;
-	int all_instrs;
-	int j;
 
 	i = 0;
-	all_instrs = data->instr_num;
+	if (!array)
+		return ;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void	free_mem_inst(t_data *data)
+{
+	int i;
+	int num_of_all_i;
+
+	i = 0;
+	num_of_all_i = data->instr_num;
 	if (data->header != NULL)
 		free(data->header);
-	while (i < all_instrs)
+	while (i < num_of_all_i)
 	{
-		free_instrs(data, i);
+		mem_in_bl(data, i);
 		i++;
 	}
 	ft_strdel(&data->all_labels);

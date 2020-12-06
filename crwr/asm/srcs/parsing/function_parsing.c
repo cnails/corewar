@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_function.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: gstarvin <gstarvin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/10/18 23:30:26 by gstarvin          #+#    #+#             */
+/*   Updated: 2020/12/05 22:22:51 by gstarvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			check_valid_function(char *func, t_data *data)
+int			func_validation(char *func, t_data *data)
 {
 	int i;
 
@@ -30,50 +30,51 @@ int			check_valid_function(char *func, t_data *data)
 	return (0);
 }
 
-char		*split_and_get_function_name(char *split, char split_char, \
+char		*spl_extr_func(char *arr, char char_split, \
 																t_data *data)
 {
-	char	**function;
-	char	*name;
+	char	**func;
+	char	*name_str;
 
-	function = NULL;
-	if (split[0])
-		function = ft_strsplit(split, split_char);
-	if (function != NULL && function[0] != NULL && \
-										check_valid_function(function[0], data))
+	func = NULL;
+	if (arr[0])
+		func = ft_strsplit(arr, char_split);
+	if (func != NULL && func[0] != NULL && \
+	func_validation(func[0], data))
 	{
-		name = ft_strtrim(function[0]);
-		free_massiv(function);
-		return (name);
+		name_str = ft_strtrim(func[0]);
+		free_two_dim_array(func);
+		return (name_str);
 	}
-	if (function != NULL)
-		free_massiv(function);
+	if (func != NULL)
+		free_two_dim_array(func);
 	return (NULL);
 }
 
-char		*ft_get_function_name(char *split, int *i, t_data *data)
+char		*ext_name_of_fun(char *array_of_strings, int *sym_num, t_data *data)
 {
-	char	*name;
+	char	*func_name;
 
-	skip_spaces(split, i);
-	name = split_and_get_function_name(&split[*i], ' ', data);
-	if (name == NULL)
-		name = split_and_get_function_name(&split[*i], '\t', data);
-	if (name == NULL && ft_strchr(split, DIRECT_CHAR))
-		name = split_and_get_function_name(&split[*i], DIRECT_CHAR, data);
-	return (name);
+	eliminate_spaces(array_of_strings, sym_num);
+	func_name = spl_extr_func(&array_of_strings[*sym_num], ' ', data);
+	if (func_name == NULL)
+		func_name = spl_extr_func(&array_of_strings[*sym_num], '\t', data);
+	if (func_name == NULL && ft_strchr(array_of_strings, DIRECT_CHAR))
+		func_name = spl_extr_func(&array_of_strings[*sym_num],
+							DIRECT_CHAR, data);
+	return (func_name);
 }
 
-void		ft_parse_function(char *split, int *i, t_data *data)
+void		parsing_function(char *split, int *i, t_data *data)
 {
 	char	*name;
 
-	name = ft_get_function_name(split, i, data);
+	name = ext_name_of_fun(split, i, data);
 	if (name != NULL)
 	{
 		data->instrs[data->instr_num].name = name;
 		(*i) += ft_strlen(name);
 	}
 	else
-		free_fd_put_error("Invalid function name", split, data, *i);
+		fr_mem_in("Invalid function name", split, data, *i);
 }
