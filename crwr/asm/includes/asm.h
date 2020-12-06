@@ -13,7 +13,7 @@
 #ifndef ASM_H
 # define ASM_H
 
-# include "options.h"
+# include "op.h"
 # include "error.h"
 # include "libftprintf.h"
 # include <sys/types.h>

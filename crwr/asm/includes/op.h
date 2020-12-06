@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPTIONS_H
-# define OPTIONS_H
+#ifndef OP_H
+# define OP_H
 
 # define IND_SIZE				2
 # define REG_SIZE				4
