@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburnett <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: cnails <cnails@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 23:30:26 by mburnett          #+#    #+#             */
-/*   Updated: 2020/10/19 23:33:33 by mburnett         ###   ########.fr       */
+/*   Created: 2020/12/06 14:03:08 by cnails            #+#    #+#             */
+/*   Updated: 2020/12/06 14:03:26 by cnails           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_ARGS_H
 # define PARSE_ARGS_H
-
-/*
-** NORMITE YS EBAL TEBYA V ROT SUKA
-*/
 
 # define DOTCOR ".cor"
 # define DOTCOR_SIZE sizeof(DOTCOR) - 1
